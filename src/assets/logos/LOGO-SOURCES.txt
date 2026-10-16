@@ -1,0 +1,12 @@
+Logo files used by the site. The group reports that this is a GT-approved project with
+permission to use these logos (Oct. 2026).
+
+bog-mark.png                 Bits of Good "bg" mark. Official file from the Bits of Good website
+                             repository (github.com/GTBitsOfGood/website, static/), 512 x 512.
+epic-intentions-mark.svg     Epic Intentions light-bulb mark, cut from the logo on epicintentions.org.
+cyc-mark.svg                 Consult Your Community house mark, from georgiatechcyc.org.
+gt-mark-gold.svg             Georgia Tech interlocking GT with the (R) symbol, from gatech.edu,
+gt-mark-navy.svg             in Tech Gold (#B3A369), Navy (#003057) and White.
+gt-mark-white.svg
+
+To swap a logo, replace the file with one of the same name, or change the path in js/content.js (orgs, gtLogo).

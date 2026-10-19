@@ -271,6 +271,7 @@ body.org-under .org-layer--front { z-index: 1; }
 .netstats dt { font-size: 12px; color: var(--muted); }
 .netstats dd { margin: 0; font-size: 25px; line-height: 1.15; font-weight: 800; font-stretch: 118%; font-variant-numeric: tabular-nums; }
 .source-line { margin: 0; font-size: 12.5px; color: var(--muted); }
+.stats + .source-line { margin-top: 14px; }
 
 /* legends */
 .legend { display: flex; flex-wrap: wrap; gap: 8px; margin: 2px 0 12px; }

@@ -163,9 +163,8 @@ body.org-under .org-layer--front { z-index: 1; }
   letter-spacing: -0.012em;
   text-shadow: 0 4px 36px var(--hero-shadow), 0 1px 3px var(--hero-shadow);
 }
-.hero__note { margin: 14px 0 16px; font-size: 13px; color: var(--muted); text-shadow: 0 1px 8px var(--hero-shadow); }
 .hero .ph { max-width: 480px; text-align: left; }
-.hero__tagline { margin: 0; max-width: 36ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.4; text-shadow: 0 1px 8px var(--hero-shadow), 0 0 2px var(--hero-shadow); }
+.hero__tagline { margin: 24px 0 0; max-width: 36ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.4; text-shadow: 0 1px 8px var(--hero-shadow), 0 0 2px var(--hero-shadow); }
 .hero__cue {
   position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); margin: 0;
   display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted);

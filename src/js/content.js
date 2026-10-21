@@ -22,10 +22,10 @@ window.SITE = {
        'classic'  the first draft's navy + gold
      Colors are defined in js/themes.js. You can also add ?theme=NAME to the
      address (e.g. index.html?theme=sunrise) to open the page in one theme. */
-  theme: 'dusk',
+  theme: 'daylight',
   /* Shows the "Colors" menu in the top bar so the group can compare themes.
      Set to false once you've picked one. */
-  themePicker: true,
+  themePicker: false,
 
   /* The three student organizations on the triangle. Each mark sits on a
      disc in the organization's own colors, so it stands out on any theme.

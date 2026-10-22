@@ -142,6 +142,14 @@
       </p>
     </div>
 
+    <!-- tip shown over the map; the text for each map scene is in data-na / data-atl -->
+    <p
+      id="map-tip"
+      class="map-tip"
+      data-na="Click a square to see a chapter&rsquo;s story"
+      data-atl="Click a green dot or the Bits of Good logo"
+    ></p>
+
     <div id="popup" class="popup" role="dialog" aria-live="polite" hidden>
       <button type="button" class="popup__close" aria-label="Close">
         &times;
@@ -162,15 +170,15 @@
         data-nav="Start"
       >
         <div class="hero">
-          <h1 class="hero__title">Code for your community</h1>
+          <h1 class="hero__title">Code for Your Community</h1>
           <p class="hero__tagline">
             Atlanta's nonprofits feed families, house neighbors, and support
             people in crisis while often working with outdated technology.
             Georgia Tech students can help change that.
           </p>
           <p class="hero__cue">
-            <span aria-hidden="true" class="hero__cue-line"></span>Scroll to
-            zoom in
+            <span aria-hidden="true" class="hero__cue-arrow"></span
+            ><span class="sr-only">Scroll down</span>
           </p>
         </div>
       </section>
@@ -189,18 +197,14 @@
               When Outdated Technology Gets in the Way of Helping
             </h2>
             <p>
-              Across Atlanta, nonprofits run food programs, youth clubs,
-              shelters, and services for families going through tough times.
-              They do a lot to support our communities but many are still
-              working with outdated technology. Most can't afford to hire tech
-              staff or invest in new software. On top of that, they're often
-              expected to put every dollar toward helping people directly rather
-              than improving the systems they use (Mao, 2026). One study that
-              interviewed 20 nonprofits found that they still use technology
-              much less than private companies, even when it could help them do
-              their jobs better (Godefroid et al., 2024). As a result, staff
-              spend more time dealing with paperwork and less time helping the
-              people who need them.
+              Across Atlanta, nonprofits run food programs, youth clubs, and
+              shelters, but many still work with outdated technology. Most can't
+              afford tech staff or new software, and they're expected to put
+              every dollar toward helping people directly (Mao, 2026). One study
+              of <strong class="num">20 nonprofits</strong> found they use
+              technology much less than private companies, even when it would
+              help (Godefroid et al., 2024). As a result, staff spend more time
+              on paperwork and less time with the people who need them.
             </p>
           </article>
         </div>
@@ -211,12 +215,13 @@
             </h2>
             <p>
               Better technology can help nonprofits reach more people and spend
-              less time on administrative work. A study of more than 8,400
-              nonprofits found that organizations investing more in IT brought
+              less time on administrative work. A study of more than
+              <strong class="num">8,400 nonprofits</strong> found that organizations investing more in IT brought
               in more program income and devoted a larger share of their budgets
               to their missions (Mao, 2026). The problem is that many nonprofits
               simply can't afford to invest in better tools. In a 2025 survey of
-              more than 350 nonprofit leaders, nearly 9 in 10 said budget was
+              more than <strong class="num">350</strong> nonprofit leaders,
+              <strong class="num">nearly 9 in 10</strong> said budget was
               their biggest barrier. In Atlanta, where income inequality is
               higher than in any other large U.S. city, the effects can be
               especially serious for people who rely on these organizations for
@@ -257,7 +262,7 @@
               You have skills that can make a difference
             </h2>
             <p>
-              That same survey found that having just one person who understands
+              That same survey found that having just <strong class="num">one person</strong> who understands
               technology can make a big difference for a small nonprofit.
               Georgia Tech students already have skills these organizations
               need, whether it's building apps, designing websites, organizing
@@ -379,19 +384,14 @@
         <div class="step">
           <article class="card">
             <h2 class="card__title">Bits of Good at Georgia Tech</h2>
-            <!-- data-bog makes those words open the Bits of Good pop-up on the map -->
             <p>
               Bits of Good is Georgia Tech&rsquo;s Hack4Impact chapter. It
-              started in 2017, when a few students revived a fading campus group
+              started in <strong class="num">2017</strong>, when a few students revived a fading campus group
               called Humanitech to connect students with Atlanta nonprofits.
               That summer, the new club partnered with Hack4Impact (Bits of
-              Good, n.d.-a). Today it has about 100 members (Hack4Impact,
+              Good, n.d.-a). Today it has about <strong class="num">100 members</strong> (Hack4Impact,
               n.d.-c), and its student teams build web and mobile apps for
-              nonprofits, many of them right here in Atlanta. Click
-              <button type="button" class="inline-link" data-bog>
-                the Bits of Good logo on campus
-              </button>
-              for more information.
+              nonprofits, many of them right here in Atlanta.
             </p>
           </article>
         </div>
@@ -604,7 +604,7 @@
               <h3>For students</h3>
               <div class="ph" data-words="35">
                 <p>
-                  Expect to dedicate 3-8 hours a week to meetings and
+                  Expect to dedicate <strong class="num">3&ndash;8 hours a week</strong> to meetings and
                   independent work. In return, you’ll get to work on projects
                   that will be used by real users, and have a real impact on
                   your community.

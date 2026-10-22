@@ -214,7 +214,7 @@
     const root = document.documentElement.style;
     root.setProperty('--col-x', pad + 'px');
     root.setProperty('--col-w', colW + 'px');
-    root.setProperty('--band-h', Math.round(logoTop.y + logoSize / 2 + (desktop ? 110 : 80)) + 'px');
+    root.setProperty('--band-h', Math.round(logoTop.y + logoSize / 2 + (desktop ? Math.min(110, H * 0.1) : 80)) + 'px');
     root.setProperty('--vis-x', Math.round(V.x + 8) + 'px');
     computeKeyframes();
   }
@@ -495,7 +495,8 @@
   svg('rect', { class: 'badge', x: -14, y: -14, width: 28, height: 28, rx: 3 }, bogMk);
   if (ORGS[0].logo) svg('image', { href: ORGS[0].logo, x: -10.5, y: -10.5, width: 21, height: 21, preserveAspectRatio: 'xMidYMid meet' }, bogMk);
   else svg('text', { class: 'badge-text', x: 0, y: 0.5 }, bogMk).textContent = 'BoG';
-  svg('text', { class: 'mk-label mk-label--home', x: 20, y: 4.5 }, bogMk).textContent = 'Bits of Good';
+  svg('text', { class: 'mk-label mk-label--home', x: 20, y: 0 }, bogMk).textContent = 'Bits of Good';
+  svg('text', { class: 'mk-label mk-label--cta', x: 20, y: 14 }, bogMk).textContent = 'Click for more';
   bindMarker(bogMk, () => 'Bits of Good, Georgia Tech', () => openBoG());
 
   // Spread out markers that overlap on screen (e.g. the three Montreal chapters).
@@ -1223,6 +1224,22 @@
   const hud = $('#hud-coord');
   function requestRender() { needRender = true; }
 
+  // Each map scene: set the tip over the map and pulse its markers once.
+  const mapTip = $('#map-tip');
+  let lastSceneId = null;
+  function onSceneStart(id) {
+    if (mapTip && mapTip.dataset[id]) mapTip.textContent = mapTip.dataset[id];
+    if (id === 'na') pulse(gChapters);
+    if (id === 'atl') { pulse(gNP); pulse(gBog); }
+  }
+  function pulse(g) {
+    g.classList.remove('is-pulsing');
+    g.getBoundingClientRect(); // restart the animation
+    g.classList.add('is-pulsing');
+    clearTimeout(g.pulseTimer);
+    g.pulseTimer = setTimeout(() => g.classList.remove('is-pulsing'), 2600);
+  }
+
   function render() {
     const pos = storyPos();
     updateTheme(pos, performance.now());
@@ -1247,6 +1264,7 @@
     renderOrg(os, endFade);
 
     document.body.classList.toggle('show-map-ui', st.mapUI);
+    if (pos.id !== lastSceneId) { lastSceneId = pos.id; onSceneStart(pos.id); }
     document.body.classList.toggle('org-under', pos.id === 'sdg' || (pos.id === 'toSDG' && pos.p > 0.6));
     $('#map-credit').style.opacity = st.map ? st.mapAlpha : 0;
     if (hud) {

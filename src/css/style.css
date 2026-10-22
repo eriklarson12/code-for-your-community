@@ -79,6 +79,11 @@ a {
 a:hover {
   color: var(--hl);
 }
+/* key numbers in the story text */
+.num {
+  color: var(--accent-text);
+  font-weight: 750;
+}
 /* words in the text that open a map pop-up (a button styled like a link) */
 .inline-link {
   all: unset;
@@ -133,10 +138,11 @@ p {
   justify-content: space-between;
   padding: 0 12px 0 var(--col-x);
   pointer-events: none;
+  /* solid behind the brand so card text scrolling under it stays hidden */
   background: linear-gradient(
     to bottom,
     var(--topbar-a) 0%,
-    var(--topbar-b) 55%,
+    var(--topbar-a) 70%,
     var(--topbar-c) 100%
   );
 }
@@ -398,7 +404,7 @@ body.org-under .org-layer--front {
 .hero__cue {
   position: absolute;
   left: 50%;
-  bottom: 26px;
+  bottom: 40px;
   transform: translateX(-50%);
   margin: 0;
   display: flex;
@@ -407,11 +413,26 @@ body.org-under .org-layer--front {
   font-size: 13px;
   color: var(--muted);
 }
-.hero__cue-line {
+.hero__cue-arrow {
+  width: 26px;
+  height: 26px;
+  border-right: 4px solid var(--accent-text);
+  border-bottom: 4px solid var(--accent-text);
+  transform: rotate(45deg);
+  animation: cue 1.6s ease-in-out infinite;
+}
+@keyframes cue {
+  50% {
+    transform: translateY(8px) rotate(45deg);
+  }
+}
+.sr-only {
+  position: absolute;
   width: 1px;
-  height: 28px;
-  background: linear-gradient(var(--accent), var(--topbar-c));
-  display: inline-block;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* split layout: notes in a left column, map on the right */
@@ -532,7 +553,7 @@ body.org-under .org-layer--front {
   font-stretch: 108%;
 }
 .role .ph {
-  font-size: 12px;
+  font-size: 14.5px;
 }
 
 .video-slot {
@@ -951,6 +972,22 @@ body.org-under .org-layer--front {
 .mk-label--home {
   fill: var(--accent-text);
 }
+.mk-label--cta {
+  font-size: 11.5px;
+  font-weight: 600;
+}
+/* markers grow a few times when their map section starts, to show they can be clicked */
+.is-pulsing .mk .body,
+.is-pulsing .mk-bog .badge {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: nudge 0.8s ease-in-out 3;
+}
+@keyframes nudge {
+  50% {
+    transform: scale(1.7);
+  }
+}
 .mk-np .body {
   fill: var(--np);
   stroke: var(--np-stroke);
@@ -1176,6 +1213,25 @@ body.show-map-ui .map-controls {
   width: auto;
   padding: 0 12px;
   font-size: 13px;
+}
+.map-tip {
+  position: fixed;
+  top: 76px;
+  left: var(--vis-x);
+  z-index: 5;
+  margin: 0;
+  padding: 8px 14px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+body.show-map-ui .map-tip {
+  opacity: 1;
 }
 .map-controls__hint {
   margin: 0 0 0 8px;
@@ -1598,6 +1654,13 @@ body.show-map-ui .map-controls {
   .map-controls__hint {
     display: none;
   }
+  .map-tip {
+    top: 104px;
+    left: auto;
+    right: 10px;
+    max-width: calc(100vw - 20px);
+    font-size: 13px;
+  }
   .map-hud {
     display: none;
   }
@@ -1629,6 +1692,9 @@ body.show-map-ui .map-controls {
 @media (prefers-reduced-motion: reduce) {
   .mk-home .ring,
   .mk-bog .ring,
+  .is-pulsing .mk .body,
+  .is-pulsing .mk-bog .badge,
+  .hero__cue-arrow,
   .sdg-link {
     animation: none;
   }

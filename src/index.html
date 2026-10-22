@@ -1,17 +1,22 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Code for Your Community</title>
-  <meta name="description" content="Draft promotional website: closing the technology gap for Atlanta nonprofits through Bits of Good, Epic Intentions, and Consult Your Community at Georgia Tech.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 fill=%22%230B1A2B%22/%3E%3Crect x=%224%22 y=%224%22 width=%228%22 height=%228%22 fill=%22%23F89C44%22/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/font.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-
-<!-- ================================================================
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Code for Your Community</title>
+    <meta
+      name="description"
+      content="Draft promotional website: closing the technology gap for Atlanta nonprofits through Bits of Good, Epic Intentions, and Consult Your Community at Georgia Tech."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Crect width=%2216%22 height=%2216%22 fill=%22%230B1A2B%22/%3E%3Crect x=%224%22 y=%224%22 width=%228%22 height=%228%22 fill=%22%23F89C44%22/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="css/font.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ================================================================
      HOW THIS PAGE IS BUILT (read me first)
      - The fixed "stage" (map canvas + logo triangle) sits behind the text.
      - Each <section class="scene"> below drives one part of the story.
@@ -26,354 +31,1084 @@
      - Add ?dev to the URL to see a word counter and scroll debug panel.
      ================================================================ -->
 
-<a class="skip-link" href="#act">Skip to get involved</a>
+    <a class="skip-link" href="#act">Skip to get involved</a>
 
-<header class="topbar">
-  <a class="brand" href="#top" aria-label="Back to top">
-    <span class="brand__mark" aria-hidden="true"></span>
-    <span class="brand__name">Code for Your Community</span>
-  </a>
-  <div class="topbar__tools">
-    <!-- draft only: lets the group compare color themes (turn off in js/content.js: themePicker) -->
-    <div class="theme-menu" id="theme-menu" hidden>
-      <button type="button" class="tool-btn" id="theme-toggle" aria-expanded="false" aria-controls="theme-list" aria-label="Color themes">
-        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor"/></svg>
-        <span class="tool-btn__text">Colors</span>
-      </button>
-      <div class="theme-list" id="theme-list" role="menu" aria-label="Color themes" hidden></div>
-    </div>
-    <button type="button" class="tool-btn nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="progress" aria-label="Show all sections">
-      <svg viewBox="0 0 20 20" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.8" y="3" width="3.6" height="3.6"/><rect x="2.8" y="8.2" width="3.6" height="3.6" fill="currentColor"/><rect x="2.8" y="13.4" width="3.6" height="3.6"/><path d="M9.5 4.8h8M9.5 10h8M9.5 15.2h8" stroke-linecap="square"/></g></svg>
-      <span class="tool-btn__text">Sections</span>
-    </button>
-  </div>
-</header>
-
-<!-- ======================= FIXED STAGE ======================= -->
-<div id="stage" class="stage">
-  <canvas id="map-canvas" aria-hidden="true"></canvas>
-  <svg id="map-overlay" class="map-overlay" role="group" aria-label="Interactive map"></svg>
-  <div class="map-hud" id="map-hud" aria-hidden="true">
-    <span id="hud-coord"></span>
-  </div>
-  <p class="map-credit" id="map-credit">Map data: Natural Earth, US Census, &copy; OpenStreetMap contributors</p>
-</div>
-<svg id="org-back" class="org-layer org-layer--back" aria-hidden="true"></svg>
-<div id="top-band" class="top-band" aria-hidden="true"></div>
-<svg id="org-front" class="org-layer org-layer--front" role="group" aria-label="Student initiatives"></svg>
-
-<div id="map-controls" class="map-controls" aria-label="Map controls">
-  <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
-  <button type="button" data-zoom="out" aria-label="Zoom out">&minus;</button>
-  <button type="button" data-zoom="reset" class="map-controls__reset">Recenter</button>
-  <p class="map-controls__hint" id="map-hint">Drag to move the map. Pinch, or hold Ctrl/&#8984; and scroll, to zoom.</p>
-</div>
-
-<div id="popup" class="popup" role="dialog" aria-live="polite" hidden>
-  <button type="button" class="popup__close" aria-label="Close">&times;</button>
-  <div class="popup__body"></div>
-</div>
-
-<nav id="progress" class="progress" aria-label="Page sections"></nav>
-
-<!-- ======================= STORY ======================= -->
-<main id="story" class="story">
-
-  <!-- 1. HERO: the spinning globe -->
-  <section class="scene scene--hero" data-scene="hero" data-len="100" id="top" data-nav="Start">
-    <div class="hero">
-      <h1 class="hero__title">Code for your community</h1>
-      <p class="hero__tagline">Atlanta's nonprofits feed families, house neighbors, and support people in crisis while often working with outdated technology. Georgia Tech students can help change that.</p>
-      <p class="hero__cue"><span aria-hidden="true" class="hero__cue-line"></span>Scroll to zoom in</p>
-    </div>
-  </section>
-
-  <!-- 2. THE ISSUE (globe keeps turning) -->
-  <section class="scene" data-scene="issue" data-layout="split" id="issue" data-nav="The issue">
-    <div class="step">
-      <article class="card">
-        <h2 class="card__title">When Outdated Technology Gets in the Way of Helping</h2>
-        <p>Across Atlanta, nonprofits run food programs, youth clubs, shelters, and services for families going through tough times. They do a lot to support our communities but many are still working with outdated technology. Most can't afford to hire tech staff or invest in new software. On top of that, they're often expected to put every dollar toward helping people directly rather than improving the systems they use (Mao, 2026). One study that interviewed 20 nonprofits found that they still use technology much less than private companies, even when it could help them do their jobs better (Godefroid et al., 2024). As a result, staff spend more time dealing with paperwork and less time helping the people who need them.</p>
-      </article>
-    </div>
-    <div class="step">
-      <article class="card">
-        <h2 class="card__title">The tech gap affects the people nonprofits serve</h2>
-        <p>Better technology can help nonprofits reach more people and spend less time on administrative work. A study of more than 8,400 nonprofits found that organizations investing more in IT brought in more program income and devoted a larger share of their budgets to their missions (Mao, 2026). The problem is that many nonprofits simply can't afford to invest in better tools. In a 2025 survey of more than 350 nonprofit leaders, nearly 9 in 10 said budget was their biggest barrier. In Atlanta, where income inequality is higher than in any other large U.S. city, the effects can be especially serious for people who rely on these organizations for support (Jackson, 2022).</p>
-        <div class="stats" aria-label="Key numbers">
-          <figure class="stat"><span class="stat__num">&lt;3%</span><figcaption>The share of their budgets most nonprofits spend on technology. For comparison, companies spend about 6%.</figcaption></figure>
-          <figure class="stat"><span class="stat__num">2 in 3</span><figcaption>Nonprofit leaders who say their technology gaps are holding them back from growing.</figcaption></figure>
-          <figure class="stat"><span class="stat__num">64%</span><figcaption>Nonprofit leaders who say they don't have the tech expertise they need on their teams.</figcaption></figure>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__name">Code for Your Community</span>
+      </a>
+      <div class="topbar__tools">
+        <!-- draft only: lets the group compare color themes (turn off in js/content.js: themePicker) -->
+        <div class="theme-menu" id="theme-menu" hidden>
+          <button
+            type="button"
+            class="tool-btn"
+            id="theme-toggle"
+            aria-expanded="false"
+            aria-controls="theme-list"
+            aria-label="Color themes"
+          >
+            <svg viewBox="0 0 20 20" aria-hidden="true">
+              <circle
+                cx="10"
+                cy="10"
+                r="7.25"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              />
+              <path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor" />
+            </svg>
+            <span class="tool-btn__text">Colors</span>
+          </button>
+          <div
+            class="theme-list"
+            id="theme-list"
+            role="menu"
+            aria-label="Color themes"
+            hidden
+          ></div>
         </div>
-        <p class="source-line">Source: The Chronicle of Philanthropy &amp; Clarion Research (2025).</p>
-      </article>
-    </div>
-    <div class="step">
-      <article class="card">
-        <h2 class="card__title">You have skills that can make a difference</h2>
-        <p>That same survey found that having just one person who understands technology can make a big difference for a small nonprofit. Georgia Tech students already have skills these organizations need, whether it's building apps, designing websites, organizing data, or managing projects. You don't have to wait until you graduate to put those skills to use. You can start helping your community now.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- 3. TRANSITION: globe turns to North America and zooms in -->
-  <section class="scene scene--transition" data-scene="toNA" data-len="140" aria-hidden="true">
-    <div class="bridge"><p class="bridge__text">Georgia Tech students aren't the first to identify this issue. Across North America, student teams are already working to close the gap. Meet Hack4Impact.</p></div>
-  </section>
-
-  <!-- 4. NORTH AMERICA: Hack4Impact chapters -->
-  <section class="scene" data-scene="na" data-layout="split" id="network" data-nav="Hack4Impact">
-    <div class="step">
-      <article class="card">
-        <h2 class="card__title">Hack4Impact</h2>
-        <p>Hack4Impact was founded at the University of Pennsylvania in 2014 with a simple idea: nonprofits that can't afford developers can find them on campus. It is now a nonprofit network of student-run organizations at many universities across North America (Hack4Impact, n.d.-a). A local nonprofit organization applies with a project proposal, and a chapter team works with it for a couple of semesters to design and build the software. The nonprofit owns the delivered result for free, and students gain real project experience and exposure in return (Hack4Impact, n.d.-b).</p>
-        <dl class="netstats" id="netstats"></dl>
-        <p class="source-line">Chapter data from the <a href="https://www.hack4impact.org/work/chapters" target="_blank" rel="noopener">Hack4Impact chapter directory</a>, accessed Oct. 16, 2026.</p>
-      </article>
-    </div>
-    <div class="step">
-      <article class="card">
-        <h2 class="card__title">See the stories behind each chapter</h2>
-        <!-- data-chapter="..." makes those words open that chapter's pop-up on the map (ids are in js/content.js) -->
-        <p>Each square on the map represents a chapter. Click one to see its information, what it has built, and what its members say about the work. For example, click <button type="button" class="inline-link" data-chapter="cornell">the square in Ithaca</button> to see the meeting schedule Cornell students built for a recovery center, or <button type="button" class="inline-link" data-chapter="utk">the one in Tennessee</button> to see how students took on a food ministry that ran everything out of one Excel spreadsheet. Georgia Tech's chapter, Bits of Good, is the orange square in Atlanta.</p>
-        <div class="legend legend--filter" id="chapter-legend" role="group" aria-label="Show chapters by status"></div>
-        <details class="listing">
-          <summary>List all chapters</summary>
-          <ul class="listing__items" id="chapter-list"></ul>
-        </details>
-      </article>
-    </div>
-  </section>
-
-  <!-- 5. TRANSITION: zoom from North America into Atlanta -->
-  <section class="scene scene--transition" data-scene="toATL" data-len="150" aria-hidden="true">
-    <div class="bridge"><p class="bridge__text">One of the largest chapters in the nation is right here in Atlanta. Meet Georgia Tech&rsquo;s Bits of Good.</p></div>
-  </section>
-
-  <!-- 6. ATLANTA: GT campus, Bits of Good, nonprofit partners -->
-  <section class="scene" data-scene="atl" data-layout="split" id="atlanta" data-nav="Atlanta">
-    <div class="step">
-      <article class="card">
-        <h2 class="card__title">Bits of Good at Georgia Tech</h2>
-        <!-- data-bog makes those words open the Bits of Good pop-up on the map -->
-        <p>Bits of Good is Georgia Tech&rsquo;s Hack4Impact chapter. It started in 2017, when a few students revived a fading campus group called Humanitech to connect students with Atlanta nonprofits. That summer, the new club partnered with Hack4Impact (Bits of Good, n.d.-a). Today it has about 100 members (Hack4Impact, n.d.-c), and its student teams build web and mobile apps for nonprofits, many of them right here in Atlanta. Click <button type="button" class="inline-link" data-bog>the Bits of Good logo on campus</button> for more information.</p>
-      </article>
-    </div>
-    <div class="step">
-      <article class="card">
-        <h2 class="card__title">Built for campus, the city, and the planet</h2>
-        <!-- data-nonprofit="..." makes those words open that project's card on the map (ids are in js/content.js, atlanta.nonprofits) -->
-        <p>Each green dot is a project Bits of Good has worked on. Click one to see what the group does and what students built for it. Some projects help the environment, like the tool that helps builders to look up <button type="button" class="inline-link" data-nonprofit="southface">Southface Energy Institute</button>&rsquo;s green building standards and turn them into a plan. Others serve Georgia Tech itself. <button type="button" class="inline-link" data-nonprofit="gtscheduler">GT Scheduler</button> helps students plan their classes, and a ride system built for <button type="button" class="inline-link" data-nonprofit="ablealliance">ABLE Alliance</button> now powers the Student Paratransit Service. Many help our neighbors in Atlanta. <button type="button" class="inline-link" data-nonprofit="mbb">Motherhood Beyond Bars</button> supports families caring for babies born to mothers in Georgia prisons, and students built the app those caretakers use to ask for supplies and support. When a partner is this close to campus, students can meet the people they&rsquo;re building for and see the difference their work makes.</p>
-        <div class="legend" id="np-legend" role="group" aria-label="Highlight partners by project type"></div>
-        <details class="listing">
-          <summary>List all partners</summary>
-          <ul class="listing__items" id="np-list"></ul>
-        </details>
-      </article>
-    </div>
-  </section>
-
-  <!-- 7. TRANSITION: zoom into campus, the map gives way to the Bits of Good logo -->
-  <section class="scene scene--transition" data-scene="toBoG" data-len="150" aria-hidden="true"></section>
-
-  <!-- 8. BITS OF GOOD (logo pinned on top) -->
-  <section class="scene" data-scene="bog" data-layout="stacked" id="bog" data-nav="Bits of Good">
-    <div class="block">
-      <h2 class="block__title">[Headline: what Bits of Good does]</h2>
-      <div class="ph" data-words="70"><p>Talk more about Bits of Good: who they are, how a semester works, who they serve.</p></div>
-    </div>
-
-    <div class="block">
-      <h3 class="block__subtitle">Roles</h3>
-      <div class="roles">
-        <article class="role"><h4>[Role 1]</h4><div class="ph" data-words="25"><p>What this role does and who it suits.</p></div></article>
-        <article class="role"><h4>[Role 2]</h4><div class="ph" data-words="25"><p>What this role does and who it suits.</p></div></article>
-        <article class="role"><h4>[Role 3]</h4><div class="ph" data-words="25"><p>What this role does and who it suits.</p></div></article>
-        <article class="role"><h4>[Role 4]</h4><div class="ph" data-words="25"><p>What this role does and who it suits.</p></div></article>
+        <button
+          type="button"
+          class="tool-btn nav-toggle"
+          id="nav-toggle"
+          aria-expanded="false"
+          aria-controls="progress"
+          aria-label="Show all sections"
+        >
+          <svg viewBox="0 0 20 20" aria-hidden="true">
+            <g fill="none" stroke="currentColor" stroke-width="1.6">
+              <rect x="2.8" y="3" width="3.6" height="3.6" />
+              <rect
+                x="2.8"
+                y="8.2"
+                width="3.6"
+                height="3.6"
+                fill="currentColor"
+              />
+              <rect x="2.8" y="13.4" width="3.6" height="3.6" />
+              <path
+                d="M9.5 4.8h8M9.5 10h8M9.5 15.2h8"
+                stroke-linecap="square"
+              />
+            </g>
+          </svg>
+          <span class="tool-btn__text">Sections</span>
+        </button>
       </div>
+    </header>
+
+    <!-- ======================= FIXED STAGE ======================= -->
+    <div id="stage" class="stage">
+      <canvas id="map-canvas" aria-hidden="true"></canvas>
+      <svg
+        id="map-overlay"
+        class="map-overlay"
+        role="group"
+        aria-label="Interactive map"
+      ></svg>
+      <div class="map-hud" id="map-hud" aria-hidden="true">
+        <span id="hud-coord"></span>
+      </div>
+      <p class="map-credit" id="map-credit">
+        Map data: Natural Earth, US Census, &copy; OpenStreetMap contributors
+      </p>
+    </div>
+    <svg
+      id="org-back"
+      class="org-layer org-layer--back"
+      aria-hidden="true"
+    ></svg>
+    <div id="top-band" class="top-band" aria-hidden="true"></div>
+    <svg
+      id="org-front"
+      class="org-layer org-layer--front"
+      role="group"
+      aria-label="Student initiatives"
+    ></svg>
+
+    <div id="map-controls" class="map-controls" aria-label="Map controls">
+      <button type="button" data-zoom="in" aria-label="Zoom in">+</button>
+      <button type="button" data-zoom="out" aria-label="Zoom out">
+        &minus;
+      </button>
+      <button type="button" data-zoom="reset" class="map-controls__reset">
+        Recenter
+      </button>
+      <p class="map-controls__hint" id="map-hint">
+        Drag to move the map. Pinch, or hold Ctrl/&#8984; and scroll, to zoom.
+      </p>
     </div>
 
-    <div class="block">
-      <h3 class="block__subtitle">[Video title]</h3>
-      <div class="video-slot">
-        <!-- Replace this whole div's contents with your embed, e.g.:
+    <div id="popup" class="popup" role="dialog" aria-live="polite" hidden>
+      <button type="button" class="popup__close" aria-label="Close">
+        &times;
+      </button>
+      <div class="popup__body"></div>
+    </div>
+
+    <nav id="progress" class="progress" aria-label="Page sections"></nav>
+
+    <!-- ======================= STORY ======================= -->
+    <main id="story" class="story">
+      <!-- 1. HERO: the spinning globe -->
+      <section
+        class="scene scene--hero"
+        data-scene="hero"
+        data-len="100"
+        id="top"
+        data-nav="Start"
+      >
+        <div class="hero">
+          <h1 class="hero__title">Code for your community</h1>
+          <p class="hero__tagline">
+            Atlanta's nonprofits feed families, house neighbors, and support
+            people in crisis while often working with outdated technology.
+            Georgia Tech students can help change that.
+          </p>
+          <p class="hero__cue">
+            <span aria-hidden="true" class="hero__cue-line"></span>Scroll to
+            zoom in
+          </p>
+        </div>
+      </section>
+
+      <!-- 2. THE ISSUE (globe keeps turning) -->
+      <section
+        class="scene"
+        data-scene="issue"
+        data-layout="split"
+        id="issue"
+        data-nav="The issue"
+      >
+        <div class="step">
+          <article class="card">
+            <h2 class="card__title">
+              When Outdated Technology Gets in the Way of Helping
+            </h2>
+            <p>
+              Across Atlanta, nonprofits run food programs, youth clubs,
+              shelters, and services for families going through tough times.
+              They do a lot to support our communities but many are still
+              working with outdated technology. Most can't afford to hire tech
+              staff or invest in new software. On top of that, they're often
+              expected to put every dollar toward helping people directly rather
+              than improving the systems they use (Mao, 2026). One study that
+              interviewed 20 nonprofits found that they still use technology
+              much less than private companies, even when it could help them do
+              their jobs better (Godefroid et al., 2024). As a result, staff
+              spend more time dealing with paperwork and less time helping the
+              people who need them.
+            </p>
+          </article>
+        </div>
+        <div class="step">
+          <article class="card">
+            <h2 class="card__title">
+              The tech gap affects the people nonprofits serve
+            </h2>
+            <p>
+              Better technology can help nonprofits reach more people and spend
+              less time on administrative work. A study of more than 8,400
+              nonprofits found that organizations investing more in IT brought
+              in more program income and devoted a larger share of their budgets
+              to their missions (Mao, 2026). The problem is that many nonprofits
+              simply can't afford to invest in better tools. In a 2025 survey of
+              more than 350 nonprofit leaders, nearly 9 in 10 said budget was
+              their biggest barrier. In Atlanta, where income inequality is
+              higher than in any other large U.S. city, the effects can be
+              especially serious for people who rely on these organizations for
+              support (Jackson, 2022).
+            </p>
+            <div class="stats" aria-label="Key numbers">
+              <figure class="stat">
+                <span class="stat__num">&lt;3%</span>
+                <figcaption>
+                  The share of their budgets most nonprofits spend on
+                  technology. For comparison, companies spend about 6%.
+                </figcaption>
+              </figure>
+              <figure class="stat">
+                <span class="stat__num">2 in 3</span>
+                <figcaption>
+                  Nonprofit leaders who say their technology gaps are holding
+                  them back from growing.
+                </figcaption>
+              </figure>
+              <figure class="stat">
+                <span class="stat__num">64%</span>
+                <figcaption>
+                  Nonprofit leaders who say they don't have the tech expertise
+                  they need on their teams.
+                </figcaption>
+              </figure>
+            </div>
+            <p class="source-line">
+              Source: The Chronicle of Philanthropy &amp; Clarion Research
+              (2025).
+            </p>
+          </article>
+        </div>
+        <div class="step">
+          <article class="card">
+            <h2 class="card__title">
+              You have skills that can make a difference
+            </h2>
+            <p>
+              That same survey found that having just one person who understands
+              technology can make a big difference for a small nonprofit.
+              Georgia Tech students already have skills these organizations
+              need, whether it's building apps, designing websites, organizing
+              data, or managing projects. You don't have to wait until you
+              graduate to put those skills to use. You can start helping your
+              community now.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3. TRANSITION: globe turns to North America and zooms in -->
+      <section
+        class="scene scene--transition"
+        data-scene="toNA"
+        data-len="140"
+        aria-hidden="true"
+      >
+        <div class="bridge">
+          <p class="bridge__text">
+            Georgia Tech students aren't the first to identify this issue.
+            Across North America, student teams are already working to close the
+            gap. Meet Hack4Impact.
+          </p>
+        </div>
+      </section>
+
+      <!-- 4. NORTH AMERICA: Hack4Impact chapters -->
+      <section
+        class="scene"
+        data-scene="na"
+        data-layout="split"
+        id="network"
+        data-nav="Hack4Impact"
+      >
+        <div class="step">
+          <article class="card">
+            <h2 class="card__title">Hack4Impact</h2>
+            <p>
+              Hack4Impact was founded at the University of Pennsylvania in 2014
+              with a simple idea: nonprofits that can't afford developers can
+              find them on campus. It is now a nonprofit network of student-run
+              organizations at many universities across North America
+              (Hack4Impact, n.d.-a). A local nonprofit organization applies with
+              a project proposal, and a chapter team works with it for a couple
+              of semesters to design and build the software. The nonprofit owns
+              the delivered result for free, and students gain real project
+              experience and exposure in return (Hack4Impact, n.d.-b).
+            </p>
+            <dl class="netstats" id="netstats"></dl>
+            <p class="source-line">
+              Chapter data from the
+              <a
+                href="https://www.hack4impact.org/work/chapters"
+                target="_blank"
+                rel="noopener"
+                >Hack4Impact chapter directory</a
+              >, accessed Oct. 16, 2026.
+            </p>
+          </article>
+        </div>
+        <div class="step">
+          <article class="card">
+            <h2 class="card__title">See the stories behind each chapter</h2>
+            <!-- data-chapter="..." makes those words open that chapter's pop-up on the map (ids are in js/content.js) -->
+            <p>
+              Each square on the map represents a chapter. Click one to see its
+              information, what it has built, and what its members say about the
+              work. For example, click
+              <button type="button" class="inline-link" data-chapter="cornell">
+                the square in Ithaca
+              </button>
+              to see the meeting schedule Cornell students built for a recovery
+              center, or
+              <button type="button" class="inline-link" data-chapter="utk">
+                the one in Tennessee
+              </button>
+              to see how students took on a food ministry that ran everything
+              out of one Excel spreadsheet. Georgia Tech's chapter, Bits of
+              Good, is the orange square in Atlanta.
+            </p>
+            <div
+              class="legend legend--filter"
+              id="chapter-legend"
+              role="group"
+              aria-label="Show chapters by status"
+            ></div>
+            <details class="listing">
+              <summary>List all chapters</summary>
+              <ul class="listing__items" id="chapter-list"></ul>
+            </details>
+          </article>
+        </div>
+      </section>
+
+      <!-- 5. TRANSITION: zoom from North America into Atlanta -->
+      <section
+        class="scene scene--transition"
+        data-scene="toATL"
+        data-len="150"
+        aria-hidden="true"
+      >
+        <div class="bridge">
+          <p class="bridge__text">
+            One of the largest chapters in the nation is right here in Atlanta.
+            Meet Georgia Tech&rsquo;s Bits of Good.
+          </p>
+        </div>
+      </section>
+
+      <!-- 6. ATLANTA: GT campus, Bits of Good, nonprofit partners -->
+      <section
+        class="scene"
+        data-scene="atl"
+        data-layout="split"
+        id="atlanta"
+        data-nav="Atlanta"
+      >
+        <div class="step">
+          <article class="card">
+            <h2 class="card__title">Bits of Good at Georgia Tech</h2>
+            <!-- data-bog makes those words open the Bits of Good pop-up on the map -->
+            <p>
+              Bits of Good is Georgia Tech&rsquo;s Hack4Impact chapter. It
+              started in 2017, when a few students revived a fading campus group
+              called Humanitech to connect students with Atlanta nonprofits.
+              That summer, the new club partnered with Hack4Impact (Bits of
+              Good, n.d.-a). Today it has about 100 members (Hack4Impact,
+              n.d.-c), and its student teams build web and mobile apps for
+              nonprofits, many of them right here in Atlanta. Click
+              <button type="button" class="inline-link" data-bog>
+                the Bits of Good logo on campus
+              </button>
+              for more information.
+            </p>
+          </article>
+        </div>
+        <div class="step">
+          <article class="card">
+            <h2 class="card__title">
+              Built for campus, the city, and the planet
+            </h2>
+            <!-- data-nonprofit="..." makes those words open that project's card on the map (ids are in js/content.js, atlanta.nonprofits) -->
+            <p>
+              Each green dot is a project Bits of Good has worked on. Click one
+              to see what the group does and what students built for it. Some
+              projects help the environment, like the tool that helps builders
+              to look up
+              <button
+                type="button"
+                class="inline-link"
+                data-nonprofit="southface"
+              >
+                Southface Energy Institute</button
+              >&rsquo;s green building standards and turn them into a plan.
+              Others serve Georgia Tech itself.
+              <button
+                type="button"
+                class="inline-link"
+                data-nonprofit="gtscheduler"
+              >
+                GT Scheduler
+              </button>
+              helps students plan their classes, and a ride system built for
+              <button
+                type="button"
+                class="inline-link"
+                data-nonprofit="ablealliance"
+              >
+                ABLE Alliance
+              </button>
+              now powers the Student Paratransit Service. Many help our
+              neighbors in Atlanta.
+              <button type="button" class="inline-link" data-nonprofit="mbb">
+                Motherhood Beyond Bars
+              </button>
+              supports families caring for babies born to mothers in Georgia
+              prisons, and students built the app those caretakers use to ask
+              for supplies and support. When a partner is this close to campus,
+              students can meet the people they&rsquo;re building for and see
+              the difference their work makes.
+            </p>
+            <div
+              class="legend"
+              id="np-legend"
+              role="group"
+              aria-label="Highlight partners by project type"
+            ></div>
+            <details class="listing">
+              <summary>List all partners</summary>
+              <ul class="listing__items" id="np-list"></ul>
+            </details>
+          </article>
+        </div>
+      </section>
+
+      <!-- 7. TRANSITION: zoom into campus, the map gives way to the Bits of Good logo -->
+      <section
+        class="scene scene--transition"
+        data-scene="toBoG"
+        data-len="150"
+        aria-hidden="true"
+      ></section>
+
+      <!-- 8. BITS OF GOOD (logo pinned on top) -->
+      <section
+        class="scene"
+        data-scene="bog"
+        data-layout="stacked"
+        id="bog"
+        data-nav="Bits of Good"
+      >
+        <div class="block">
+          <h2 class="block__title">What Bits of Good does</h2>
+          <div class="ph" data-words="70">
+            <p>
+              Each semester, small teams of developers, designers and managers
+              pair with one nonprofit partner and build a tool around its needs,
+              from volunteer management to donation platforms. A dedicated
+              maintenance team keeps past projects running, so partners aren’t
+              left with software nobody supports after students graduate or move
+              on.
+              <br />
+              <br />
+              In order to keep everything running, Bits of Good has a wide range
+              of roles students can get involved in.
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3 class="block__subtitle">Roles</h3>
+          <div class="roles">
+            <article class="role">
+              <h4>Bootcamper</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  New to Bits of Good? Bootcamp teaches the basics of web
+                  development or product design through hands-on projects,
+                  preparing you to join a real nonprofit project team next
+                  semester.
+                </p>
+              </div>
+            </article>
+            <article class="role">
+              <h4>Bootcamp Instructor</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  Experienced members lead bootcamp sessions, teaching
+                  development or design fundamentals, reviewing work and
+                  mentoring new members as they build their first projects.
+                </p>
+              </div>
+            </article>
+            <article class="role">
+              <h4>Engineering</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  Developers build web applications for nonprofit partners.
+                  Engineering managers lead each team’s technical work, plan
+                  sprints, review code and make sure the finished software is
+                  reliable and maintainable.
+                </p>
+              </div>
+            </article>
+            <article class="role">
+              <h4>Product</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  Product managers are the bridge between students and
+                  nonprofits. They gather requirements, write roadmaps, keep
+                  projects on schedule and make sure the team builds what the
+                  partner actually needs.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div class="roles">
+            <article class="role">
+              <h4>Design</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  Product designers research users and create wireframes and
+                  interfaces for each project. Brand designers shape Bits of
+                  Good’s own visual identity across the website, social media
+                  and events.
+                </p>
+              </div>
+            </article>
+            <article class="role">
+              <h4>Nonprofit Partner</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  Recruit new nonprofit partners, interview them about their
+                  challenges, and turn those needs into software proposals.
+                </p>
+              </div>
+            </article>
+            <article class="role">
+              <h4>Marketing</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  The marketing team tells Bits of Good’s story. They run social
+                  media, newsletters and recruitment campaigns, and highlight
+                  finished projects so more students and nonprofits get
+                  involved.
+                </p>
+              </div>
+            </article>
+            <article class="role">
+              <h4>Operations</h4>
+              <div class="ph" data-words="25">
+                <p>
+                  Operations keeps the organization running behind the scenes:
+                  planning events and showcases, managing recruitment logistics,
+                  handling finances and supporting members across every team.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3 class="block__subtitle">[Video title]</h3>
+          <div class="video-slot">
+            <!-- Replace this whole div's contents with your embed, e.g.:
              <iframe src="https://www.youtube-nocookie.com/embed/VIDEO_ID" title="Bits of Good demo"
                      allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe> -->
-        <div class="video-slot__placeholder">
-          <span class="video-slot__play" aria-hidden="true"></span>
-          <p>Demo video placeholder (16:9). Ideas from the deck: a Demo Day recording, a project walkthrough, or an interview with a member or nonprofit partner.</p>
+            <div class="video-slot__placeholder">
+              <span class="video-slot__play" aria-hidden="true"></span>
+              <p>Demo video placeholder</p>
+            </div>
+          </div>
+          <div class="ph" data-words="25">
+            <p>Video caption</p>
+          </div>
         </div>
-      </div>
-      <div class="ph" data-words="25"><p>Caption: what the video shows and why it matters.</p></div>
-    </div>
 
-    <div class="block" id="act" data-nav-anchor="Get involved">
-      <h2 class="block__title">[Headline: get involved]</h2>
-      <div class="cta-grid">
-        <article class="cta">
-          <h3>For students</h3>
-          <div class="ph" data-words="35"><p>Why College of Computing students should apply. Be honest about the time commitment.</p></div>
-          <a class="btn btn--primary" data-link="bogApply" href="#">Apply to Bits of Good</a>
-        </article>
-        <article class="cta">
-          <h3>For nonprofits</h3>
-          <div class="ph" data-words="35"><p>How a nonprofit can propose a project and what to expect.</p></div>
-          <a class="btn" data-link="bogPartner" href="#">Propose a project</a>
-        </article>
-        <article class="cta">
-          <h3>One step further</h3>
-          <div class="ph" data-words="35"><p>Your further-step proposal (e.g. the follow-up check-ins after handoff from your report). Ask readers for ideas.</p></div>
-          <a class="btn" data-link="ideaForm" href="#">Share an idea</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. TRANSITION: the triangle turns, Epic Intentions comes to the top -->
-  <section class="scene scene--transition" data-scene="toEI" data-len="110" aria-hidden="true">
-    <div class="bridge bridge--low"><div class="ph ph--light" data-words="15"><p>Coding projects aren&rsquo;t the only way for students to use their skills to aid a nonprofit organization. Business knowledge is also essential.</p></div></div>
-  </section>
-
-  <!-- 10. EPIC INTENTIONS -->
-  <section class="scene" data-scene="ei" data-layout="stacked" id="epic-intentions" data-nav="Epic Intentions">
-    <div class="block">
-      <h2 class="block__title">Epic Intentions</h2>
-      <p>Nonprofits need to know how to use their resources. A web app can organize information on a nonprofit&rsquo;s finances, but it’s useless if the members don&rsquo;t know how to use that information. Epic Intentions helps bridge that gap by not only providing custom apps but also developing business and marketing strategies for nonprofits.</p>
-    </div>
-    <div class="block two-col">
-      <div><h3 class="block__subtitle">Who can get involved</h3><p>Any student is welcome, but Epic Intentions&rsquo; projects often require skills in business, UI/UX, and programming.</p></div>
-      <div><h3 class="block__subtitle">How it complements Bits of Good</h3><p>Bits of Good and Epic Intentions provide custom software for nonprofits. However, Epic Intentions also helps with the business side of things.</p></div>
-    </div>
-    <div class="block">
-      <div class="btn-row">
-        <a class="btn btn--primary" data-link="eiApply" href="#">Apply to Epic Intentions</a>
-        <a class="btn" data-link="eiNonprofits" href="#">Epic Intentions for nonprofits</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11. TRANSITION: the triangle turns, Consult Your Community comes to the top -->
-  <section class="scene scene--transition" data-scene="toCYC" data-len="110" aria-hidden="true"></section>
-
-  <!-- 12. CONSULT YOUR COMMUNITY -->
-  <section class="scene" data-scene="cyc" data-layout="stacked" id="cyc" data-nav="Consult Your Community">
-    <div class="block">
-      <h2 class="block__title">Consult Your Community</h2>
-      <p>Consult Your Community focuses entirely on solving business problems for nonprofits and local businesses. Members thoroughly examine the whole organization and give advice on every aspect from employee training to fundraising strategies. They also host volunteer events for their partners.</p>
-    </div>
-    <div class="block two-col">
-      <div><h3 class="block__subtitle">Who can get involved</h3><p>Any student can join, and training is provided to ensure that each member has the commercial knowledge to become a consultant.</p></div>
-      <div><h3 class="block__subtitle">How it complements Bits of Good</h3><p>Bits of Good provides the technological resources to a nonprofit while Consult Your Community figures out how that technology can best be used.</p></div>
-    </div>
-    <div class="block">
-      <div class="btn-row">
-        <a class="btn btn--primary" data-link="cycApply" href="#">Apply to CYC</a>
-        <a class="btn" data-link="cycSite" href="#">Visit CYC&rsquo;s site</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 13. TRANSITION: zoom out to the full triangle inside the GT frame, linked to SDG 8 and 11 -->
-  <section class="scene scene--transition" data-scene="toSDG" data-len="140" aria-hidden="true"></section>
-
-  <!-- 14. SDGs + SUSTAINABILITY NEXT -->
-  <section class="scene" data-scene="sdg" data-layout="split" id="goals" data-nav="SDGs and GT">
-    <div class="step" data-focus="sdg8">
-      <article class="card">
-        <h2 class="card__title">SDG 8: Decent work and economic growth</h2>
-        <p>SDG 8 calls for &ldquo;decent work for all&rdquo; and for higher productivity through &ldquo;technological upgrading and innovation&rdquo; (United Nations, n.d.-a). Initiatives like Bits of Good, Epic Intentions, and Consult Your Community help with both. They give nonprofits custom tools and business advice, so the same staff and volunteers can get more done. Consult Your Community also works with local businesses, and helping small businesses grow is another SDG 8 target. The students gain from actively participating in these initiatives too. They work with real clients, on real deadlines, as part of a team. That&rsquo;s practice for their future careers, and SDG 8 specifically calls for decent work for young people (United Nations, n.d.-a).</p>
-      </article>
-    </div>
-    <div class="step" data-focus="sdg11">
-      <article class="card">
-        <h2 class="card__title">SDG 11: Sustainable cities and communities</h2>
-        <p>SDG 11 calls for cities that are &ldquo;inclusive, safe, resilient and sustainable,&rdquo; and one of its targets is access for all to &ldquo;adequate, safe and affordable housing and basic services&rdquo; (United Nations, n.d.-b). Many nonprofits provide those kinds of services, so helping them run well is a direct way to make Atlanta more inclusive. Student initiatives can also make that help last. The students live in Atlanta, and the clubs keep going after members graduate, so a nonprofit can come back for updates or a new project (Hack4Impact, n.d.-b). That kind of steady, local support helps a community stay resilient. Some projects even help with sustainability directly. Bits of Good built Southface Energy Institute an online planner that makes sustainability standards easier to understand and use (Bits of Good, n.d.-l).</p>
-      </article>
-    </div>
-    <div class="step" data-focus="gt">
-      <article class="card">
-        <h2 class="card__title">Georgia Tech&rsquo;s Sustainability Next</h2>
-        <div class="ph" data-words="90"><p>Required by the assignment: connect these initiatives to Georgia Tech&rsquo;s Sustainability Next plan (and Serve-Learn-Sustain, per your report).</p></div>
-      </article>
-    </div>
-    <div class="step" data-focus="all">
-      <article class="card">
-        <h2 class="card__title">[Closing headline]</h2>
-        <div class="ph" data-words="50"><p>Close the argument and repeat the call to action.</p></div>
-        <div class="btn-row">
-          <a class="btn btn--primary" data-link="bogApply" href="#">Apply to Bits of Good</a>
-          <a class="btn" data-link="ideaForm" href="#">Share an idea</a>
+        <div class="block" id="act" data-nav-anchor="Get involved">
+          <h2 class="block__title">Get involved</h2>
+          <div class="cta-grid">
+            <article class="cta">
+              <h3>For students</h3>
+              <div class="ph" data-words="35">
+                <p>
+                  Expect to dedicate 3-8 hours a week to meetings and
+                  independent work. In return, you’ll get to work on projects
+                  that will be used by real users, and have a real impact on
+                  your community.
+                </p>
+              </div>
+              <a class="btn btn--primary" data-link="bogApply" href="#"
+                >Apply to Bits of Good</a
+              >
+            </article>
+            <article class="cta">
+              <h3>For nonprofits</h3>
+              <div class="ph" data-words="35">
+                <p>
+                  Run a nonprofit with a tech problem? Submit a project proposal
+                  on the Bits of Good website. A student team will work with you
+                  to discuss what kind of custom software your nonprofit needs
+                  and how our teams can help.
+                </p>
+              </div>
+              <a class="btn" data-link="bogPartner" href="#"
+                >Propose a project</a
+              >
+            </article>
+            <article class="cta">
+              <h3>One step further</h3>
+              <div class="ph" data-words="35">
+                <p>
+                  Are you a student with new ideas for tech that supports a
+                  cause? Or do you have suggestions on how we can build and hand
+                  off software that supports nonprofits over time? Reach out
+                  through our form below!
+                </p>
+              </div>
+              <a class="btn" data-link="ideaForm" href="#">Share an idea</a>
+            </article>
+          </div>
         </div>
-      </article>
-    </div>
-  </section>
+      </section>
 
-  <!-- 15. SOURCES (normal page flow) -->
-  <section class="sources" id="sources" data-nav="Sources">
-    <div class="sources__inner">
-      <h2>Sources</h2>
-      <p class="sources__note">Copied from your research report. Check the formatting against the citation style your instructor wants.</p>
-      <ol class="sources__list">
-        <li>Bales, M. (2023, January 3). Hack4Impact students reflect on their semester nonprofit projects. <i>The Daily Illini</i>. Access World News.</li>
-        <li>Bits of Good. (n.d.-a). <i>About us</i>. Retrieved October 21, 2026, from https://bitsofgood.org/about</li>
-        <li>Bits of Good. (n.d.-b). <i>Brain Exercise Initiative</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/brain-exercise-initiative</li>
-        <li>Bits of Good. (n.d.-c). <i>Canine Assistants</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/canine-assistants</li>
-        <li>Bits of Good. (n.d.-d). <i>Georgia CORE</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/georgia-core</li>
-        <li>Bits of Good. (n.d.-e). <i>GT Scheduler</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/gt-scheduler</li>
-        <li>Bits of Good. (n.d.-f). <i>Heart of Passion</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/heart-of-passion</li>
-        <li>Bits of Good. (n.d.-g). <i>Helping Mamas</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/helping-mamas</li>
-        <li>Bits of Good. (n.d.-h). <i>Jennifer Ann&rsquo;s Group</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/jennifer-anns-group</li>
-        <li>Bits of Good. (n.d.-i). <i>Join us</i>. Retrieved October 21, 2026, from https://bitsofgood.org/join</li>
-        <li>Bits of Good. (n.d.-j). <i>Motherhood Beyond Bars</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/motherhood-beyond-bars</li>
-        <li>Bits of Good. (n.d.-k). <i>Nonprofit application</i>. Retrieved October 21, 2026, from https://apply.bitsofgood.org/</li>
-        <li>Bits of Good. (n.d.-l). <i>Our projects</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects</li>
-        <li>Bits of Good. (n.d.-m). <i>The Ray</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/the-ray</li>
-        <li>Bits of Good. (n.d.-n). <i>Southface Energy Institute</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/southface-energy-institute</li>
-        <li>Bits of Good. (n.d.-o). <i>Volunteer Management Solution</i>. Retrieved October 21, 2026, from https://bitsofgood.org/projects/vms</li>
-        <li>Bits of Good. (2026a). <i>able-alliance</i> [Computer software]. GitHub. https://github.com/GTBitsOfGood/able-alliance</li>
-        <li>Bits of Good. (2026b). <i>hope-for-haiti</i> [Computer software]. GitHub. https://github.com/GTBitsOfGood/hope-for-haiti</li>
-        <li>Bits of Good. (2026c). <i>ican</i> [Computer software]. GitHub. https://github.com/GTBitsOfGood/ican</li>
-        <li>Bobsin, D., Petrini, M., &amp; Pozzebon, M. (2019). The value of technology affordances to improve the management of nonprofit organizations. <i>RAUSP Management Journal, 54</i>(1), 14&ndash;37. https://doi.org/10.1108/RAUSP-07-2018-0045</li>
-        <li>Dalal, A. C., &amp; Oliver, E. (2022). A case study of a multiyear community-engaged learning capstone in computer science. <i>Journal of Higher Education Outreach and Engagement, 26</i>(1), 129&ndash;146.</li>
-        <li>Gbenjo, A. D. (2026). <i>Utilizing data analytics tools &amp; technologies to enhance nonprofit service delivery: Opportunities for decision-centric operations</i> (Order No. 32668932) [Doctoral dissertation]. ProQuest Dissertations &amp; Theses.</li>
-        <li>Godefroid, M.-E., Plattfaut, R., &amp; Niehaves, B. (2024). Identifying key barriers to nonprofit organizations&rsquo; adoption of technology innovations. <i>Nonprofit Management and Leadership, 35</i>(1), 237&ndash;259. https://doi.org/10.1002/nml.21609</li>
-        <li>Hack4Impact. (n.d.-a). <i>About</i>. Retrieved October 21, 2026, from https://www.hack4impact.org/about</li>
-        <li>Hack4Impact. (n.d.-b). <i>Home</i>. Retrieved October 21, 2026, from https://www.hack4impact.org/</li>
-        <li>Hack4Impact. (n.d.-c). <i>Our chapters</i>. Retrieved October 16, 2026, from https://www.hack4impact.org/work/chapters</li>
-        <li>Hack4Impact demo day. (2023, April 5). <i>Sentinel Newsletter</i>, Carleton College Department of Computer Science. https://www.carleton.edu/computer-science/sentinel-newsletter/news/hack4impact-demo-day/</li>
-        <li>Hack4Impact McGill. (n.d.-a). <i>Apply: Students</i>. Retrieved October 21, 2026, from https://mcgill.hack4impact.org/apply/students</li>
-        <li>Hack4Impact McGill. (n.d.-b). <i>WC &ndash; Inventory</i>. Retrieved October 21, 2026, from https://mcgill.hack4impact.org/projects?name=welcome-collective</li>
-        <li>Hope for Haiti. (2026). <i>Fact sheet: Hope for Haiti 2026</i> [Fact sheet]. https://hopeforhaiti.com/wp-content/uploads/2026/03/Fact-Sheet-Hope-for-Haiti-2026.pdf</li>
-        <li>International Children&rsquo;s Advisory Network. (n.d.). <i>Empowering pediatric patients worldwide</i>. Retrieved October 21, 2026, from https://www.icanresearch.org/</li>
-        <li>Jackson, D. (2022, November 28). Atlanta has the highest income inequality in the nation, Census data shows. <i>The Atlanta Journal-Constitution</i>. https://www.ajc.com/news/investigations/atlanta-has-the-highest-income-inequality-in-the-nation-census-data-shows/YJRZ6A4UGBFWTMYICTG2BCOUPU/</li>
-        <li>Kim, A. (2026, April 8). For Cornell&rsquo;s Hack4Impact, building software means building social change. <i>The Cornell Daily Sun</i>. https://www.cornellsun.com/article/2026/04/for-cornells-hack4impact-building-software-means-building-social-change</li>
-        <li>Mao, H. (2026). Investments rather than costs: The financial benefits of information technology adoption in nonprofit organizations. <i>Nonprofit Management and Leadership, 36</i>(3), 479&ndash;491. https://doi.org/10.1002/nml.70022</li>
-        <li>New American Welcome Center. (n.d.). <i>Oasis Resource Center</i>. University YMCA. Retrieved October 21, 2026, from https://nawc.universityymca.org/programs/oasis-resource-center</li>
-        <li>Penn partners on new app to aid vulnerable youth exiting foster care. (2017, May 4). <i>Penn Today</i>. https://penntoday.upenn.edu/features/penn-partners-on-new-app-to-aid-vulnerable-youth-exiting-foster-care</li>
-        <li>Senior design project benefits local nonprofit. (2024, May 8). Min H. Kao Department of Electrical Engineering and Computer Science, University of Tennessee, Knoxville. https://eecs.utk.edu/senior-design-project-benefits-local-nonprofit/</li>
-        <li>Slater, E. (2026, April 9). Hack4Impact turns science lessons into play. Cal Poly College of Engineering. https://ceng.calpoly.edu/connection/2026/04/hack4impact-turns-science-lessons-into-play/</li>
-        <li>Students design crucial tool for Ithaca&rsquo;s recovery community. (2025, October 6). <i>Targeted News Service</i>. Access World News.</li>
-        <li>Tannenbaum, S. (2022, April 4). Coding meets volunteering: Students develop software for nonprofit organizations. <i>The Daily Free Press</i>. https://dailyfreepress.com/?p=187770</li>
-        <li>The Chronicle of Philanthropy &amp; Clarion Research. (2025). Nonprofit technology survey. https://www.philanthropy.com/nonprofit-technology-survey/</li>
-        <li>United Nations. (n.d.-a). <i>Goal 8: Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all</i>. Department of Economic and Social Affairs. Retrieved October 21, 2026, from https://sdgs.un.org/goals/goal8</li>
-        <li>United Nations. (n.d.-b). <i>Goal 11: Make cities and human settlements inclusive, safe, resilient and sustainable</i>. Department of Economic and Social Affairs. Retrieved October 21, 2026, from https://sdgs.un.org/goals/goal11</li>
-        <li>Zarate, M. (2025, May 5). UMD students display projects at Hack4Impact spring showcase. <i>The Diamondback</i>. https://dbknews.com/2025/05/05/students-projects-hack4impact-showcase-umd/</li>
-        <li>[Add: Georgia Tech Sustainability Next plan]</li>
-        <li>[Add: Atlanta-specific nonprofit data, if you find it]</li>
-      </ol>
-      <p class="sources__credit">Map data: Natural Earth (public domain); US Census Bureau boundaries via us-atlas; campus outlines and highways &copy; OpenStreetMap contributors (ODbL). Logos belong to their organizations.</p>
-      <p class="sources__credit">Created by [team names] for LMC 3403, Georgia Tech, Fall 2026.</p>
-    </div>
-  </section>
-</main>
+      <!-- 9. TRANSITION: the triangle turns, Epic Intentions comes to the top -->
+      <section
+        class="scene scene--transition"
+        data-scene="toEI"
+        data-len="110"
+        aria-hidden="true"
+      >
+        <div class="bridge bridge--low">
+          <div class="ph ph--light" data-words="15">
+            <p>
+              Coding projects aren&rsquo;t the only way for students to use
+              their skills to aid a nonprofit organization. Business knowledge
+              is also essential.
+            </p>
+          </div>
+        </div>
+      </section>
 
-<div id="dev-panel" class="dev-panel" hidden></div>
+      <!-- 10. EPIC INTENTIONS -->
+      <section
+        class="scene"
+        data-scene="ei"
+        data-layout="stacked"
+        id="epic-intentions"
+        data-nav="Epic Intentions"
+      >
+        <div class="block">
+          <h2 class="block__title">Epic Intentions</h2>
+          <p>
+            Nonprofits need to know how to use their resources. A web app can
+            organize information on a nonprofit&rsquo;s finances, but it’s
+            useless if the members don&rsquo;t know how to use that information.
+            Epic Intentions helps bridge that gap by not only providing custom
+            apps but also developing business and marketing strategies for
+            nonprofits.
+          </p>
+        </div>
+        <div class="block two-col">
+          <div>
+            <h3 class="block__subtitle">Who can get involved</h3>
+            <p>
+              Any student is welcome, but Epic Intentions&rsquo; projects often
+              require skills in business, UI/UX, and programming.
+            </p>
+          </div>
+          <div>
+            <h3 class="block__subtitle">How it complements Bits of Good</h3>
+            <p>
+              Bits of Good and Epic Intentions provide custom software for
+              nonprofits. However, Epic Intentions also helps with the business
+              side of things.
+            </p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="btn-row">
+            <a class="btn btn--primary" data-link="eiApply" href="#"
+              >Apply to Epic Intentions</a
+            >
+            <a class="btn" data-link="eiNonprofits" href="#"
+              >Epic Intentions for nonprofits</a
+            >
+          </div>
+        </div>
+      </section>
 
-<script src="vendor/d3.min.js"></script>
-<script src="vendor/topojson-client.min.js"></script>
-<script src="js/geo-data.js"></script>
-<script src="js/themes.js"></script>
-<script src="js/content.js"></script>
-<script src="js/app.js"></script>
-</body>
+      <!-- 11. TRANSITION: the triangle turns, Consult Your Community comes to the top -->
+      <section
+        class="scene scene--transition"
+        data-scene="toCYC"
+        data-len="110"
+        aria-hidden="true"
+      ></section>
+
+      <!-- 12. CONSULT YOUR COMMUNITY -->
+      <section
+        class="scene"
+        data-scene="cyc"
+        data-layout="stacked"
+        id="cyc"
+        data-nav="Consult Your Community"
+      >
+        <div class="block">
+          <h2 class="block__title">Consult Your Community</h2>
+          <p>
+            Consult Your Community focuses entirely on solving business problems
+            for nonprofits and local businesses. Members thoroughly examine the
+            whole organization and give advice on every aspect from employee
+            training to fundraising strategies. They also host volunteer events
+            for their partners.
+          </p>
+        </div>
+        <div class="block two-col">
+          <div>
+            <h3 class="block__subtitle">Who can get involved</h3>
+            <p>
+              Any student can join, and training is provided to ensure that each
+              member has the commercial knowledge to become a consultant.
+            </p>
+          </div>
+          <div>
+            <h3 class="block__subtitle">How it complements Bits of Good</h3>
+            <p>
+              Bits of Good provides the technological resources to a nonprofit
+              while Consult Your Community figures out how that technology can
+              best be used.
+            </p>
+          </div>
+        </div>
+        <div class="block">
+          <div class="btn-row">
+            <a class="btn btn--primary" data-link="cycApply" href="#"
+              >Apply to CYC</a
+            >
+            <a class="btn" data-link="cycSite" href="#"
+              >Visit CYC&rsquo;s site</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- 13. TRANSITION: zoom out to the full triangle inside the GT frame, linked to SDG 8 and 11 -->
+      <section
+        class="scene scene--transition"
+        data-scene="toSDG"
+        data-len="140"
+        aria-hidden="true"
+      ></section>
+
+      <!-- 14. SDGs + SUSTAINABILITY NEXT -->
+      <section
+        class="scene"
+        data-scene="sdg"
+        data-layout="split"
+        id="goals"
+        data-nav="SDGs and GT"
+      >
+        <div class="step" data-focus="sdg8">
+          <article class="card">
+            <h2 class="card__title">SDG 8: Decent work and economic growth</h2>
+            <p>
+              SDG 8 calls for &ldquo;decent work for all&rdquo; and for higher
+              productivity through &ldquo;technological upgrading and
+              innovation&rdquo; (United Nations, n.d.-a). Initiatives like Bits
+              of Good, Epic Intentions, and Consult Your Community help with
+              both. They give nonprofits custom tools and business advice, so
+              the same staff and volunteers can get more done. Consult Your
+              Community also works with local businesses, and helping small
+              businesses grow is another SDG 8 target. The students gain from
+              actively participating in these initiatives too. They work with
+              real clients, on real deadlines, as part of a team. That&rsquo;s
+              practice for their future careers, and SDG 8 specifically calls
+              for decent work for young people (United Nations, n.d.-a).
+            </p>
+          </article>
+        </div>
+        <div class="step" data-focus="sdg11">
+          <article class="card">
+            <h2 class="card__title">
+              SDG 11: Sustainable cities and communities
+            </h2>
+            <p>
+              SDG 11 calls for cities that are &ldquo;inclusive, safe, resilient
+              and sustainable,&rdquo; and one of its targets is access for all
+              to &ldquo;adequate, safe and affordable housing and basic
+              services&rdquo; (United Nations, n.d.-b). Many nonprofits provide
+              those kinds of services, so helping them run well is a direct way
+              to make Atlanta more inclusive. Student initiatives can also make
+              that help last. The students live in Atlanta, and the clubs keep
+              going after members graduate, so a nonprofit can come back for
+              updates or a new project (Hack4Impact, n.d.-b). That kind of
+              steady, local support helps a community stay resilient. Some
+              projects even help with sustainability directly. Bits of Good
+              built Southface Energy Institute an online planner that makes
+              sustainability standards easier to understand and use (Bits of
+              Good, n.d.-l).
+            </p>
+          </article>
+        </div>
+        <div class="step" data-focus="gt">
+          <article class="card">
+            <h2 class="card__title">
+              Georgia Tech&rsquo;s Sustainability Next
+            </h2>
+            <div class="ph" data-words="90">
+              <p>
+                Required by the assignment: connect these initiatives to Georgia
+                Tech&rsquo;s Sustainability Next plan (and Serve-Learn-Sustain,
+                per your report).
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="step" data-focus="all">
+          <article class="card">
+            <h2 class="card__title">[Closing headline]</h2>
+            <div class="ph" data-words="50">
+              <p>Close the argument and repeat the call to action.</p>
+            </div>
+            <div class="btn-row">
+              <a class="btn btn--primary" data-link="bogApply" href="#"
+                >Apply to Bits of Good</a
+              >
+              <a class="btn" data-link="ideaForm" href="#">Share an idea</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 15. SOURCES (normal page flow) -->
+      <section class="sources" id="sources" data-nav="Sources">
+        <div class="sources__inner">
+          <h2>Sources</h2>
+          <p class="sources__note">
+            Copied from your research report. Check the formatting against the
+            citation style your instructor wants.
+          </p>
+          <ol class="sources__list">
+            <li>
+              Bales, M. (2023, January 3). Hack4Impact students reflect on their
+              semester nonprofit projects. <i>The Daily Illini</i>. Access World
+              News.
+            </li>
+            <li>
+              Bits of Good. (n.d.-a). <i>About us</i>. Retrieved October 21,
+              2026, from https://bitsofgood.org/about
+            </li>
+            <li>
+              Bits of Good. (n.d.-b). <i>Brain Exercise Initiative</i>.
+              Retrieved October 21, 2026, from
+              https://bitsofgood.org/projects/brain-exercise-initiative
+            </li>
+            <li>
+              Bits of Good. (n.d.-c). <i>Canine Assistants</i>. Retrieved
+              October 21, 2026, from
+              https://bitsofgood.org/projects/canine-assistants
+            </li>
+            <li>
+              Bits of Good. (n.d.-d). <i>Georgia CORE</i>. Retrieved October 21,
+              2026, from https://bitsofgood.org/projects/georgia-core
+            </li>
+            <li>
+              Bits of Good. (n.d.-e). <i>GT Scheduler</i>. Retrieved October 21,
+              2026, from https://bitsofgood.org/projects/gt-scheduler
+            </li>
+            <li>
+              Bits of Good. (n.d.-f). <i>Heart of Passion</i>. Retrieved October
+              21, 2026, from https://bitsofgood.org/projects/heart-of-passion
+            </li>
+            <li>
+              Bits of Good. (n.d.-g). <i>Helping Mamas</i>. Retrieved October
+              21, 2026, from https://bitsofgood.org/projects/helping-mamas
+            </li>
+            <li>
+              Bits of Good. (n.d.-h). <i>Jennifer Ann&rsquo;s Group</i>.
+              Retrieved October 21, 2026, from
+              https://bitsofgood.org/projects/jennifer-anns-group
+            </li>
+            <li>
+              Bits of Good. (n.d.-i). <i>Join us</i>. Retrieved October 21,
+              2026, from https://bitsofgood.org/join
+            </li>
+            <li>
+              Bits of Good. (n.d.-j). <i>Motherhood Beyond Bars</i>. Retrieved
+              October 21, 2026, from
+              https://bitsofgood.org/projects/motherhood-beyond-bars
+            </li>
+            <li>
+              Bits of Good. (n.d.-k). <i>Nonprofit application</i>. Retrieved
+              October 21, 2026, from https://apply.bitsofgood.org/
+            </li>
+            <li>
+              Bits of Good. (n.d.-l). <i>Our projects</i>. Retrieved October 21,
+              2026, from https://bitsofgood.org/projects
+            </li>
+            <li>
+              Bits of Good. (n.d.-m). <i>The Ray</i>. Retrieved October 21,
+              2026, from https://bitsofgood.org/projects/the-ray
+            </li>
+            <li>
+              Bits of Good. (n.d.-n). <i>Southface Energy Institute</i>.
+              Retrieved October 21, 2026, from
+              https://bitsofgood.org/projects/southface-energy-institute
+            </li>
+            <li>
+              Bits of Good. (n.d.-o). <i>Volunteer Management Solution</i>.
+              Retrieved October 21, 2026, from
+              https://bitsofgood.org/projects/vms
+            </li>
+            <li>
+              Bits of Good. (2026a). <i>able-alliance</i> [Computer software].
+              GitHub. https://github.com/GTBitsOfGood/able-alliance
+            </li>
+            <li>
+              Bits of Good. (2026b). <i>hope-for-haiti</i> [Computer software].
+              GitHub. https://github.com/GTBitsOfGood/hope-for-haiti
+            </li>
+            <li>
+              Bits of Good. (2026c). <i>ican</i> [Computer software]. GitHub.
+              https://github.com/GTBitsOfGood/ican
+            </li>
+            <li>
+              Bobsin, D., Petrini, M., &amp; Pozzebon, M. (2019). The value of
+              technology affordances to improve the management of nonprofit
+              organizations. <i>RAUSP Management Journal, 54</i>(1),
+              14&ndash;37. https://doi.org/10.1108/RAUSP-07-2018-0045
+            </li>
+            <li>
+              Dalal, A. C., &amp; Oliver, E. (2022). A case study of a multiyear
+              community-engaged learning capstone in computer science.
+              <i>Journal of Higher Education Outreach and Engagement, 26</i>(1),
+              129&ndash;146.
+            </li>
+            <li>
+              Gbenjo, A. D. (2026).
+              <i
+                >Utilizing data analytics tools &amp; technologies to enhance
+                nonprofit service delivery: Opportunities for decision-centric
+                operations</i
+              >
+              (Order No. 32668932) [Doctoral dissertation]. ProQuest
+              Dissertations &amp; Theses.
+            </li>
+            <li>
+              Godefroid, M.-E., Plattfaut, R., &amp; Niehaves, B. (2024).
+              Identifying key barriers to nonprofit organizations&rsquo;
+              adoption of technology innovations.
+              <i>Nonprofit Management and Leadership, 35</i>(1), 237&ndash;259.
+              https://doi.org/10.1002/nml.21609
+            </li>
+            <li>
+              Hack4Impact. (n.d.-a). <i>About</i>. Retrieved October 21, 2026,
+              from https://www.hack4impact.org/about
+            </li>
+            <li>
+              Hack4Impact. (n.d.-b). <i>Home</i>. Retrieved October 21, 2026,
+              from https://www.hack4impact.org/
+            </li>
+            <li>
+              Hack4Impact. (n.d.-c). <i>Our chapters</i>. Retrieved October 16,
+              2026, from https://www.hack4impact.org/work/chapters
+            </li>
+            <li>
+              Hack4Impact demo day. (2023, April 5). <i>Sentinel Newsletter</i>,
+              Carleton College Department of Computer Science.
+              https://www.carleton.edu/computer-science/sentinel-newsletter/news/hack4impact-demo-day/
+            </li>
+            <li>
+              Hack4Impact McGill. (n.d.-a). <i>Apply: Students</i>. Retrieved
+              October 21, 2026, from
+              https://mcgill.hack4impact.org/apply/students
+            </li>
+            <li>
+              Hack4Impact McGill. (n.d.-b). <i>WC &ndash; Inventory</i>.
+              Retrieved October 21, 2026, from
+              https://mcgill.hack4impact.org/projects?name=welcome-collective
+            </li>
+            <li>
+              Hope for Haiti. (2026).
+              <i>Fact sheet: Hope for Haiti 2026</i> [Fact sheet].
+              https://hopeforhaiti.com/wp-content/uploads/2026/03/Fact-Sheet-Hope-for-Haiti-2026.pdf
+            </li>
+            <li>
+              International Children&rsquo;s Advisory Network. (n.d.).
+              <i>Empowering pediatric patients worldwide</i>. Retrieved October
+              21, 2026, from https://www.icanresearch.org/
+            </li>
+            <li>
+              Jackson, D. (2022, November 28). Atlanta has the highest income
+              inequality in the nation, Census data shows.
+              <i>The Atlanta Journal-Constitution</i>.
+              https://www.ajc.com/news/investigations/atlanta-has-the-highest-income-inequality-in-the-nation-census-data-shows/YJRZ6A4UGBFWTMYICTG2BCOUPU/
+            </li>
+            <li>
+              Kim, A. (2026, April 8). For Cornell&rsquo;s Hack4Impact, building
+              software means building social change.
+              <i>The Cornell Daily Sun</i>.
+              https://www.cornellsun.com/article/2026/04/for-cornells-hack4impact-building-software-means-building-social-change
+            </li>
+            <li>
+              Mao, H. (2026). Investments rather than costs: The financial
+              benefits of information technology adoption in nonprofit
+              organizations. <i>Nonprofit Management and Leadership, 36</i>(3),
+              479&ndash;491. https://doi.org/10.1002/nml.70022
+            </li>
+            <li>
+              New American Welcome Center. (n.d.). <i>Oasis Resource Center</i>.
+              University YMCA. Retrieved October 21, 2026, from
+              https://nawc.universityymca.org/programs/oasis-resource-center
+            </li>
+            <li>
+              Penn partners on new app to aid vulnerable youth exiting foster
+              care. (2017, May 4). <i>Penn Today</i>.
+              https://penntoday.upenn.edu/features/penn-partners-on-new-app-to-aid-vulnerable-youth-exiting-foster-care
+            </li>
+            <li>
+              Senior design project benefits local nonprofit. (2024, May 8). Min
+              H. Kao Department of Electrical Engineering and Computer Science,
+              University of Tennessee, Knoxville.
+              https://eecs.utk.edu/senior-design-project-benefits-local-nonprofit/
+            </li>
+            <li>
+              Slater, E. (2026, April 9). Hack4Impact turns science lessons into
+              play. Cal Poly College of Engineering.
+              https://ceng.calpoly.edu/connection/2026/04/hack4impact-turns-science-lessons-into-play/
+            </li>
+            <li>
+              Students design crucial tool for Ithaca&rsquo;s recovery
+              community. (2025, October 6). <i>Targeted News Service</i>. Access
+              World News.
+            </li>
+            <li>
+              Tannenbaum, S. (2022, April 4). Coding meets volunteering:
+              Students develop software for nonprofit organizations.
+              <i>The Daily Free Press</i>. https://dailyfreepress.com/?p=187770
+            </li>
+            <li>
+              The Chronicle of Philanthropy &amp; Clarion Research. (2025).
+              Nonprofit technology survey.
+              https://www.philanthropy.com/nonprofit-technology-survey/
+            </li>
+            <li>
+              United Nations. (n.d.-a).
+              <i
+                >Goal 8: Promote sustained, inclusive and sustainable economic
+                growth, full and productive employment and decent work for
+                all</i
+              >. Department of Economic and Social Affairs. Retrieved October
+              21, 2026, from https://sdgs.un.org/goals/goal8
+            </li>
+            <li>
+              United Nations. (n.d.-b).
+              <i
+                >Goal 11: Make cities and human settlements inclusive, safe,
+                resilient and sustainable</i
+              >. Department of Economic and Social Affairs. Retrieved October
+              21, 2026, from https://sdgs.un.org/goals/goal11
+            </li>
+            <li>
+              Zarate, M. (2025, May 5). UMD students display projects at
+              Hack4Impact spring showcase. <i>The Diamondback</i>.
+              https://dbknews.com/2025/05/05/students-projects-hack4impact-showcase-umd/
+            </li>
+            <li>[Add: Georgia Tech Sustainability Next plan]</li>
+            <li>[Add: Atlanta-specific nonprofit data, if you find it]</li>
+          </ol>
+          <p class="sources__credit">
+            Map data: Natural Earth (public domain); US Census Bureau boundaries
+            via us-atlas; campus outlines and highways &copy; OpenStreetMap
+            contributors (ODbL). Logos belong to their organizations.
+          </p>
+          <p class="sources__credit">
+            Created by [team names] for LMC 3403, Georgia Tech, Fall 2026.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div id="dev-panel" class="dev-panel" hidden></div>
+
+    <script src="vendor/d3.min.js"></script>
+    <script src="vendor/topojson-client.min.js"></script>
+    <script src="js/geo-data.js"></script>
+    <script src="js/themes.js"></script>
+    <script src="js/content.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>

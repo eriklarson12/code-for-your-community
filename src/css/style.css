@@ -1543,10 +1543,6 @@ body.show-map-ui .map-tip {
   font-stretch: 118%;
   font-weight: 780;
 }
-.sources__note {
-  color: var(--muted);
-  font-size: 14px;
-}
 .sources__list {
   padding-left: 1.3em;
   color: var(--text);

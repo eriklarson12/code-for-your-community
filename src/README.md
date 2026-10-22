@@ -25,7 +25,7 @@ which leaves some room for pop-up text.
 | Transition | Globe turns to North America and zooms in | 1 bridge sentence |
 | Hack4Impact | North America map, 22 chapter squares, click for pop-ups | 2 cards + status filter + chapter list |
 | Transition | Zoom from North America into Atlanta (with the `dusk` theme, the page switches from night to day here) | 1 bridge sentence |
-| Atlanta | Interstates, river, GT + Emory campuses, Bits of Good badge, 10 nonprofit pins | 2 cards + category filter + partner list |
+| Atlanta | Interstates, river, GT + Emory campuses, Bits of Good badge, 13 project pins | 2 cards + category filter + partner list |
 | Transition | Zoom into campus; the map fades and the BoG badge becomes the logo | none |
 | Bits of Good | Logo pinned on top, faint triangle behind | what BoG does, 4 roles, video slot, 3 calls to action |
 | Transition | Triangle turns; Epic Intentions comes to the top | 1 bridge sentence |
@@ -53,11 +53,12 @@ Anything a reader moves eases back to the story view as they keep scrolling.
 | To change... | Edit |
 |---|---|
 | Section text | `index.html`. Replace each `<div class="ph" data-words="N">…</div>` with your own `<p>` text. N is the suggested word count. |
-| Map pop-up text (chapter stories, nonprofit descriptions, BoG summary, SDG pop-ups) | `js/content.js`. Any text in `[brackets]` shows as a dashed placeholder. Set a story to `null` to hide it. |
+| Map pop-up text (chapter stories, nonprofit descriptions, BoG summary, SDG pop-ups) | `js/content.js`. Any text in `[brackets]` shows as a dashed placeholder. Set a story to `null` to hide it. The BoG summary can be a list of paragraphs: `summary: ['First paragraph.', 'Second paragraph.']`. |
+| Words in the text that open a map pop-up | Wrap them in `<button type="button" class="inline-link" data-chapter="cornell">...</button>`, using the chapter's `id` from `js/content.js`. Use `data-bog` instead of `data-chapter` to open the Bits of Good pop-up, or `data-nonprofit="southface"` (ids from `atlanta.nonprofits`) to open a project's card. Card 2 in the Hack4Impact section and both Atlanta cards have examples. |
 | Button links (apply, propose a project, idea form) | `js/content.js` → `links`. Buttons with a dashed "link TBD" badge still need a URL. |
 | Logos | Files are in `assets/logos/` (sources in `LOGO-SOURCES.txt`). Paths, disc colors and logo size: `js/content.js` → `orgs` and `gtLogo`. |
 | Where the GT logo sits | `js/content.js` → `gtLogo.placement`: `'center'` (full color inside the triangle, the default) or `'behind'` (large and faint behind it). |
-| Nonprofit pin locations | `js/content.js` → `atlanta.nonprofits[].at` as `[latitude, longitude]`. They're placeholders now, and each pop-up says "Pin location is approximate". |
+| Nonprofit pins and pop-ups | `js/content.js` → `atlanta.nonprofits` (the comment above the list explains each field). Pin locations (`at`, as `[latitude, longitude]`) are approximate. Groups based outside Atlanta sit at the edge of the map, and their `note` says where they are. |
 | Demo video | `index.html`: search for `video-slot` and paste a YouTube/Vimeo `<iframe>` (there's a commented example). |
 | Color theme | `js/content.js` → `theme` (`dusk`, `ember`, `daylight`, `sunrise`, `classic`). The colors themselves are in `js/themes.js`. |
 | The "Colors" menu | Draft only, so the group can compare themes live. Turn it off with `themePicker: false` in `js/content.js`. |
@@ -86,7 +87,7 @@ assets/logos/       BoG, Epic Intentions, CYC and GT logo files (+ LOGO-SOURCES.
   If the class requires Wix or Google Sites, check first: an embedded iframe of this page won't scroll-drive properly.
 - **Facts to verify.**
   - Chapter status and numbers were copied from hack4impact.org on Oct. 16, 2026. Re-check them close to the deadline.
-  - The 10 nonprofits come from bitsofgood.org/projects. Their pin locations are approximate.
+  - The 13 projects on the Atlanta map come from bitsofgood.org/projects, the Bits of Good blog and its GitHub. Their pin locations are approximate.
 - **Logos.** The group reports permission to use the GT and club logos. Two of GT's published logo rules
   (brand.gatech.edu) are worth checking with whoever approved the project:
   - keep contrast with the background and don't alter the logo. That's why the default shows the GT logo at full color

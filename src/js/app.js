@@ -483,7 +483,7 @@
     bindMarker(g, () => `${c.school} (${c.status})`, () => openChapter(c));
   }
   for (const n of nonprofits) {
-    const g = svg('g', { class: 'mk mk-np', tabindex: 0, role: 'button', 'aria-label': `${n.name}: nonprofit partner` }, gNP);
+    const g = svg('g', { class: 'mk mk-np', tabindex: 0, role: 'button', 'aria-label': `${n.name}: Bits of Good project` }, gNP);
     svg('circle', { class: 'hit', r: 13 }, g);
     svg('circle', { class: 'body', r: 6.5 }, g);
     n.el = g;
@@ -789,12 +789,15 @@
   const popup = $('#popup'), popBody = $('.popup__body', popup);
   let popAnchor = null;
   function phOr(text) { return isPh(text) ? `<span class="ph-inline">${esc(text)}</span>` : `<p>${esc(text)}</p>`; }
+  // More than one paragraph: a list of strings, e.g. ['First paragraph.', 'Second paragraph.']
+  function paras(text) { return Array.isArray(text) ? `<div class="pop__paras">${text.map(phOr).join('')}</div>` : phOr(text); }
   function linkList(pairs) {
     const items = pairs.filter(([, u]) => u).map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(t)}</a>`);
     return items.length ? `<p class="pop__links">${items.join('')}</p>` : '';
   }
-  function openPopup(html, anchor) {
+  function openPopup(html, anchor, wide) {
     popBody.innerHTML = html;
+    popup.classList.toggle('popup--wide', !!wide); // the Bits of Good pop-up has more text
     popup.hidden = false; popup.scrollTop = 0;
     popAnchor = anchor;
     positionPopup();
@@ -843,14 +846,15 @@
   function openNonprofit(n) {
     const meta = [`<span class="tag">${esc(n.category)}</span>`];
     if (n.when) meta.push(`<span>${esc(n.when)}</span>`);
+    const link = n.link || SITE.links.bogProjects;
+    const note = n.note || (n.approx ? 'Pin location is approximate.' : '');
     const html = `<p class="pop__meta">${meta.join('')}</p>
       <h3 class="pop__title">${esc(n.name)}</h3>
-      <p class="pop__sub">Bits of Good nonprofit partner</p>
-      <section class="pop__sec"><h4>What they do</h4>${phOr(n.what)}</section>
+      <p class="pop__sub">${esc(n.sub || 'Bits of Good nonprofit partner')}${n.where ? ' &middot; ' + esc(n.where) : ''}</p>
+      <section class="pop__sec"><h4>${esc(n.whatTitle || 'What they do')}</h4>${phOr(n.what)}</section>
       <section class="pop__sec"><h4>What Bits of Good built</h4><p class="pop__built">${esc(n.built)}</p>${phOr(n.builtNote)}</section>
-      <div class="pop__img">[Screenshot of the product]</div>
-      ${linkList([['Nonprofit website', n.site], ['Bits of Good projects', SITE.links.bogProjects]])}
-      ${n.approx ? '<p class="pop__note">Pin location is approximate.</p>' : ''}`;
+      ${linkList([[link === SITE.links.bogProjects ? 'Bits of Good projects' : 'Project page', link]])}
+      ${note ? `<p class="pop__note">${esc(note)}</p>` : ''}`;
     openPopup(html, () => n.xy);
   }
   function openBoG() {
@@ -860,10 +864,10 @@
       <h3 class="pop__title">Bits of Good</h3>
       <p class="pop__sub">Georgia Tech&rsquo;s Hack4Impact chapter</p>
       <dl class="pop__stats"><div><dt>Active members</dt><dd>${c.members}</dd></div><div><dt>Projects delivered</dt><dd>${c.projects}</dd></div></dl>
-      <section class="pop__sec"><h4>Summary</h4>${phOr(SITE.atlanta.bog.summary)}</section>
+      <section class="pop__sec"><h4>Summary</h4>${paras(SITE.atlanta.bog.summary)}</section>
       ${linkList([['bitsofgood.org', c.web], ['GitHub', c.github], ['Instagram', c.instagram]])}
       <p class="pop__actions"><button class="btn btn--small btn--primary" data-goto="bog">Meet Bits of Good</button></p>`;
-    openPopup(html, () => bogMk.xy);
+    openPopup(html, () => bogMk.xy, true);
   }
   function openSdg(key, anchor) {
     const d = SITE.sdg[key];
@@ -1039,6 +1043,41 @@
         a.addEventListener('click', e => e.preventDefault());
       } else { a.href = url; if (/^https?:/.test(url)) { a.target = '_blank'; a.rel = 'noopener'; } }
     });
+  }
+  // Words in the story text that open a chapter's pop-up on the map, e.g.
+  // <button type="button" class="inline-link" data-chapter="cornell">the square in Ithaca</button>
+  // data-chapter is a chapter id from js/content.js.
+  function wireChapterLinks() {
+    $$('[data-chapter]').forEach(el => el.addEventListener('click', e => {
+      e.preventDefault();
+      const c = chapters.find(x => x.id === el.dataset.chapter);
+      if (!c) { console.warn('No chapter with id', el.dataset.chapter); return; }
+      if (!statusFilter[c.status]) { // its status is switched off in the legend: show it again
+        statusFilter[c.status] = true;
+        $$('#chapter-legend .chip').forEach(ch => ch.setAttribute('aria-pressed', String(statusFilter[ch.dataset.status])));
+      }
+      if (!c.xy) focusOn(c.ll, null); // the reader moved the map away: bring the square back into view
+      requestRender();
+      requestAnimationFrame(() => requestAnimationFrame(() => { if (c.xy) openChapter(c); }));
+    }));
+    // Same idea for the Bits of Good logo on the Atlanta map:
+    // <button type="button" class="inline-link" data-bog>the Bits of Good logo on campus</button>
+    $$('[data-bog]').forEach(el => el.addEventListener('click', e => {
+      e.preventDefault();
+      if (!bogMk.xy) focusOn(BOG, null); // the reader moved the map away: bring the logo back into view
+      requestRender();
+      requestAnimationFrame(() => requestAnimationFrame(() => { if (bogMk.xy) openBoG(); }));
+    }));
+    // ...and for the project dots on the Atlanta map:
+    // <button type="button" class="inline-link" data-nonprofit="southface">Southface Energy Institute</button>
+    $$('[data-nonprofit]').forEach(el => el.addEventListener('click', e => {
+      e.preventDefault();
+      const n = nonprofits.find(x => x.id === el.dataset.nonprofit);
+      if (!n) { console.warn('No project with id', el.dataset.nonprofit); return; }
+      if (!n.xy) focusOn(n.ll, null); // the reader moved the map away: bring the dot back into view
+      requestRender();
+      requestAnimationFrame(() => requestAnimationFrame(() => { if (n.xy) openNonprofit(n); }));
+    }));
   }
 
   /* ---------------- section nav ----------------
@@ -1252,6 +1291,7 @@
   // boot
   buildLegends();
   wireLinks();
+  wireChapterLinks();
   layout();
   measure();
   const urlTheme = (location.search.match(/[?&]theme=([\w-]+)/) || [])[1];

@@ -51,12 +51,13 @@ window.SITE = {
     white: 'assets/logos/gt-mark-white.svg',
   },
 
-  /* Call-to-action links. Replace the TODO one. The two Bits of Good
-     links are the ones on bitsofgood.org/join (Students / Nonprofits). */
+  /* Call-to-action links. The two Bits of Good apply links are the ones
+     on bitsofgood.org/join (Students / Nonprofits). */
   links: {
     bogApply:     'https://bitsofgood.org/join',
     bogPartner:   'https://apply.bitsofgood.org/',
-    ideaForm:     '#TODO-your-idea-collection-form',
+    bogContact:   'https://bitsofgood.org/contact',
+    bogInstagram: 'https://www.instagram.com/gtbitsofgood/',
     bogSite:      'https://bitsofgood.org',
     bogProjects:  'https://bitsofgood.org/projects',
     h4iChapters:  'https://www.hack4impact.org/work/chapters',

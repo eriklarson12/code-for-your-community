@@ -662,6 +662,10 @@ body.org-under .org-layer--front {
   background: var(--hl);
   color: var(--accent-ink);
 }
+.btn--lg {
+  padding: 15px 26px;
+  font-size: 17px;
+}
 .btn--small {
   padding: 7px 12px;
   font-size: 13.5px;

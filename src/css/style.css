@@ -556,6 +556,27 @@ body.org-under .org-layer--front {
   font-size: 14.5px;
 }
 
+.photo {
+  margin: 22px 0 0;
+}
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.photo--pair {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* equal heights for a 4:3 and a 2:3 photo */
+  gap: 10px;
+  margin: 0 0 22px;
+}
+.photo figcaption {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
 .video-slot {
   position: relative;
   aspect-ratio: 16 / 9;

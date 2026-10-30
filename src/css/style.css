@@ -388,14 +388,14 @@ body.org-under .org-layer--front {
     0 4px 36px var(--hero-shadow),
     0 1px 3px var(--hero-shadow);
 }
-.hero__title::after {
-  content: "";
+.hero__caret {
   display: inline-block;
-  width: 0.09em;
-  height: 0.78em;
-  margin-left: 0.08em;
-  background: var(--accent-text);
+  width: 0; /* the caret doesn't change where the title wraps */
+  color: var(--accent-text);
   animation: caret 1.1s steps(1) infinite;
+}
+.hero__rest {
+  visibility: hidden;
 }
 @keyframes caret {
   50% {
@@ -1849,7 +1849,7 @@ body.show-map-ui .map-tip {
   .is-pulsing .mk .body,
   .is-pulsing .mk-bog .badge,
   .hero__cue-arrow,
-  .hero__title::after,
+  .hero__caret,
   .sdg-link {
     animation: none;
   }

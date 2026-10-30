@@ -786,6 +786,25 @@
     frontLayer.setAttribute('class', 'org-layer org-layer--front' + (os.focus ? ' focus-' + os.focus : ''));
   }
 
+  /* ---------------- hero title ---------------- */
+  // Types itself in on load; clicking the brand in the top bar types it again.
+  const heroTitle = $('.hero__title'), typedEl = $('.hero__typed'), restEl = $('.hero__rest');
+  const titleText = heroTitle.getAttribute('aria-label');
+  let typeTimer;
+  function typeTitle(delay) {
+    if (reduceMotion) return;
+    clearTimeout(typeTimer);
+    let i = 0;
+    const step = () => {
+      typedEl.textContent = titleText.slice(0, i);
+      restEl.textContent = titleText.slice(i); // hidden; keeps the title's final size so nothing below it jumps
+      if (i++ < titleText.length) typeTimer = setTimeout(step, i === 1 ? delay : 90 + Math.random() * 60);
+    };
+    step();
+  }
+  typeTitle(500);
+  $('.brand').addEventListener('click', () => typeTitle(700));
+
   /* ---------------- pop-ups ---------------- */
   const popup = $('#popup'), popBody = $('.popup__body', popup);
   let popAnchor = null;

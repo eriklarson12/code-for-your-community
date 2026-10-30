@@ -76,7 +76,7 @@ window.SITE = {
     { id: 'gt', school: 'Georgia Tech', chapter: 'Bits of Good', city: 'Atlanta, GA', status: 'active', founded: 2017, members: 102, projects: 20,
       at: [33.7756, -84.3963], web: 'https://bitsofgood.org', github: 'https://github.com/GTBitsOfGood', instagram: 'https://www.instagram.com/gtbitsofgood', h4i: 'georgia-tech', home: true,
       nonprofitStory: 'Bits of Good builds free software for nonprofits, many of them here in Atlanta (Bits of Good, n.d.-a; Hack4Impact, n.d.-b). One example is a volunteer management system for Helping Mamas, a baby supply bank (Bits of Good, n.d.-g).',
-      studentStory: '“When I first came to Georgia Tech as a freshman, I knew I wanted to leave having done something outside the classroom,” said Nikhil, a Bits of Good member. He wanted “to work with real nonprofits in Atlanta to make a lasting impact” (GT Bits of Good, n.d.-b).',
+      studentStory: '“When I first came to Georgia Tech as a freshman, I knew I wanted to leave having done something outside the classroom,” said Nikhil, a Bits of Good member. He wanted “to work with real nonprofits in Atlanta to make a lasting impact” (GT Bits of Good, 2026a).',
       studentVideo: { url: 'https://www.facebook.com/reel/898623749809840', label: 'Watch Nikhil’s story' } },
     { id: 'emory', school: 'Emory University', chapter: 'Hack4Impact Emory', city: 'Atlanta, GA', status: 'active', founded: null, members: 2, projects: 0,
       at: [33.7925, -84.3240], web: 'https://emory.hack4impact.org', github: 'https://github.com/Emory-Hack4Impact', h4i: 'emory-university',

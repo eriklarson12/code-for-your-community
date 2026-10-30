@@ -823,7 +823,7 @@
   // Facebook reels play in a modal over the page. studentVideo in js/content.js: { url, label }
   const videoModal = $('#video-modal'), videoFrame = $('.video-modal__frame', videoModal);
   function videoBtn(v) {
-    return v ? `<p class="pop__actions"><button type="button" class="btn btn--small" data-video="${esc(v.url)}" data-title="${esc(v.label)}"><span class="play-icon" aria-hidden="true"></span>${esc(v.label)}</button></p>` : '';
+    return v ? `<button type="button" class="btn btn--small" data-video="${esc(v.url)}" data-title="${esc(v.label)}"><span class="play-icon" aria-hidden="true"></span>${esc(v.label)}</button>` : '';
   }
   function openVideo(url, title) {
     videoFrame.innerHTML = `<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&width=300"
@@ -849,7 +849,7 @@
         <div><dt>Projects delivered</dt><dd>${c.projects ?? '&ndash;'}</dd></div></dl>` : '';
     const stories = [
       c.nonprofitStory != null ? `<section class="pop__sec"><h4>How it helps nonprofits</h4>${phOr(c.nonprofitStory)}</section>` : '',
-      c.studentStory != null ? `<section class="pop__sec"><h4>How it helps students</h4>${phOr(c.studentStory)}${videoBtn(c.studentVideo)}</section>` : '',
+      c.studentStory != null ? `<section class="pop__sec"><h4>How it helps students</h4>${phOr(c.studentStory)}${c.studentVideo ? `<p class="pop__actions">${videoBtn(c.studentVideo)}</p>` : ''}</section>` : '',
     ].join('');
     const html = `<p class="pop__meta">${meta.join('')}</p>
       <h3 class="pop__title">${esc(c.school)}</h3>
@@ -883,7 +883,7 @@
       <dl class="pop__stats"><div><dt>Active members</dt><dd>${c.members}</dd></div><div><dt>Projects delivered</dt><dd>${c.projects}</dd></div></dl>
       <section class="pop__sec"><h4>Summary</h4>${paras(SITE.atlanta.bog.summary)}</section>
       ${linkList([['bitsofgood.org', c.web], ['GitHub', c.github], ['Instagram', c.instagram]])}
-      <p class="pop__actions"><button class="btn btn--small btn--primary" data-goto="bog">Meet Bits of Good</button></p>`;
+      <p class="pop__actions"><button class="btn btn--small btn--primary" data-goto="bog">Meet Bits of Good</button>${videoBtn(c.studentVideo)}</p>`;
     openPopup(html, () => bogMk.xy, true);
   }
   function openSdg(key, anchor) {

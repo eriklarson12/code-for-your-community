@@ -1535,6 +1535,9 @@ body.show-map-ui .map-tip {
   color: var(--muted);
 }
 .pop__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin: 14px 0 0;
 }
 .pop__logo {

@@ -554,22 +554,93 @@ body.org-under .org-layer--front {
   grid-template-columns: 1fr 1fr;
   gap: 26px;
 }
-.roles {
+.tracks__hint {
+  margin: -4px 0 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.tracks {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.track {
+  --tc: var(--accent-text);
+  border: 1px solid var(--faint);
+  border-top: 4px solid var(--tc);
+  padding: 16px 16px 6px;
+  background: color-mix(in srgb, var(--tc) 6%, transparent);
+}
+.track--learn {
+  --tc: var(--np);
+}
+.track--run {
+  --tc: var(--chapter);
+}
+.track__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font: 700 19px var(--font-code);
+  color: var(--tc);
+}
+.track__icon {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.track__sum {
+  margin: 6px 0 10px;
+  font-size: 14px;
+  color: var(--muted);
 }
 .role {
-  border: 1px solid var(--faint);
-  padding: 16px 16px 4px;
+  border-top: 1px solid var(--faint);
 }
-.role h4 {
-  margin: 0 0 10px;
+.role summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 11px 2px;
+  font-weight: 700;
   font-size: 16px;
-  font-stretch: 108%;
+  list-style: none;
+  cursor: pointer;
 }
-.role .ph {
+.role summary::-webkit-details-marker {
+  display: none;
+}
+.role summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin: 0 4px 4px 12px;
+  border-right: 2px solid var(--tc);
+  border-bottom: 2px solid var(--tc);
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+.role[open] summary::after {
+  margin-bottom: -4px;
+  transform: rotate(-135deg);
+}
+.role summary:hover {
+  color: var(--tc);
+}
+.role summary:focus-visible {
+  outline: 2px solid var(--tc);
+  outline-offset: 2px;
+}
+.role p {
+  margin: 0 0 12px;
   font-size: 14.5px;
+  line-height: 1.5;
 }
 
 .photo {
@@ -1708,6 +1779,7 @@ body.show-map-ui .map-tip {
   }
   .two-col,
   .cta-grid,
+  .tracks,
   .reel {
     grid-template-columns: 1fr;
   }

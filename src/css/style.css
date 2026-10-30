@@ -54,6 +54,8 @@
   --font:
     "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif;
+  --font-code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
 }
 
 * {
@@ -153,9 +155,7 @@ p {
   gap: 10px;
   color: var(--text);
   text-decoration: none;
-  font-weight: 700;
-  font-stretch: 112%;
-  font-size: 15px;
+  font: 700 14px var(--font-code);
 }
 .brand__mark {
   width: 12px;
@@ -388,6 +388,20 @@ body.org-under .org-layer--front {
     0 4px 36px var(--hero-shadow),
     0 1px 3px var(--hero-shadow);
 }
+.hero__title::after {
+  content: "";
+  display: inline-block;
+  width: 0.09em;
+  height: 0.78em;
+  margin-left: 0.08em;
+  background: var(--accent-text);
+  animation: caret 1.1s steps(1) infinite;
+}
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
 .hero .ph {
   max-width: 480px;
   text-align: left;
@@ -472,6 +486,11 @@ body.org-under .org-layer--front {
   font-weight: 760;
   font-stretch: 116%;
 }
+.code-label {
+  margin: 0 0 8px;
+  font: 500 13.5px/1.3 var(--font-code);
+  color: var(--accent-text);
+}
 
 /* transition captions */
 .bridge {
@@ -488,10 +507,7 @@ body.org-under .org-layer--front {
   background: var(--card);
   border: 1px solid var(--faint);
   box-shadow: 0 14px 40px var(--shadow);
-  font-size: clamp(19px, 1.6vw, 23px);
-  line-height: 1.3;
-  font-weight: 700;
-  font-stretch: 110%;
+  font: 700 clamp(17px, 1.4vw, 20px) / 1.4 var(--font-code);
 }
 .bridge--low {
   top: auto;
@@ -800,10 +816,7 @@ body.org-under .org-layer--front {
 }
 .stat__num {
   display: block;
-  font-size: 26px;
-  line-height: 1.1;
-  font-weight: 800;
-  font-stretch: 120%;
+  font: 700 26px/1.1 var(--font-code);
   color: var(--accent-text);
 }
 .stat figcaption {
@@ -1289,8 +1302,7 @@ body.show-map-ui .map-controls {
   padding: 8px 14px;
   background: var(--accent);
   color: var(--accent-ink);
-  font-size: 14px;
-  font-weight: 700;
+  font: 700 13.5px var(--font-code);
   box-shadow: 0 8px 24px var(--shadow);
   opacity: 0;
   pointer-events: none;
@@ -1762,6 +1774,7 @@ body.show-map-ui .map-tip {
   .is-pulsing .mk .body,
   .is-pulsing .mk-bog .badge,
   .hero__cue-arrow,
+  .hero__title::after,
   .sdg-link {
     animation: none;
   }

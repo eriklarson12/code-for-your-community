@@ -626,6 +626,47 @@ body.org-under .org-layer--front {
   border-bottom: 12px solid transparent;
 }
 
+.reel {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 26px;
+  align-items: center;
+}
+.reel p {
+  margin: 0;
+}
+.video-slot--reel {
+  aspect-ratio: 9 / 16;
+  margin: 0;
+  border: 0;
+}
+
+.video-modal {
+  width: min(340px, calc(100vw - 24px));
+  padding: 44px 20px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.video-modal::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+.video-modal__frame {
+  aspect-ratio: 9 / 16;
+  max-height: calc(100vh - 120px);
+  margin: 0 auto;
+}
+.video-modal__frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.play-icon {
+  border-left: 9px solid currentColor;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+}
+
 .cta-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1654,8 +1695,13 @@ body.show-map-ui .map-tip {
     margin-bottom: 12vh;
   }
   .two-col,
-  .cta-grid {
+  .cta-grid,
+  .reel {
     grid-template-columns: 1fr;
+  }
+  .video-slot--reel {
+    width: min(300px, 100%);
+    justify-self: center;
   }
   .stats {
     grid-template-columns: 1fr 1fr 1fr;

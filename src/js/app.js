@@ -803,6 +803,7 @@
     popAnchor = anchor;
     positionPopup();
     $$('[data-goto]', popBody).forEach(b => b.addEventListener('click', () => { closePopup(); scrollToScene(b.dataset.goto); }));
+    $$('[data-video]', popBody).forEach(b => b.addEventListener('click', () => openVideo(b.dataset.video, b.dataset.title)));
   }
   function closePopup() { popup.hidden = true; popAnchor = null; }
   function positionPopup() {
@@ -818,8 +819,23 @@
     popup.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
   }
   $('.popup__close', popup).addEventListener('click', closePopup);
+
+  // Facebook reels play in a modal over the page. studentVideo in js/content.js: { url, label }
+  const videoModal = $('#video-modal'), videoFrame = $('.video-modal__frame', videoModal);
+  function videoBtn(v) {
+    return v ? `<p class="pop__actions"><button type="button" class="btn btn--small" data-video="${esc(v.url)}" data-title="${esc(v.label)}"><span class="play-icon" aria-hidden="true"></span>${esc(v.label)}</button></p>` : '';
+  }
+  function openVideo(url, title) {
+    videoFrame.innerHTML = `<iframe src="https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url)}&show_text=false&width=300"
+      title="${esc(title)}" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>`;
+    videoModal.showModal();
+  }
+  videoModal.addEventListener('close', () => { videoFrame.innerHTML = ''; }); // stops playback
+  videoModal.addEventListener('click', e => { if (e.target === videoModal) videoModal.close(); }); // backdrop
+  $('.popup__close', videoModal).addEventListener('click', () => videoModal.close());
+
   document.addEventListener('keydown', e => {
-    if (e.key !== 'Escape') return;
+    if (e.key !== 'Escape' || videoModal.open) return;
     closePopup();
     if (nav.classList.contains('is-open')) { setNavOpen(false); if (navToggle) navToggle.focus(); }
     if (themeList && !themeList.hidden) { setThemeMenuOpen(false); themeBtn.focus(); }
@@ -833,7 +849,7 @@
         <div><dt>Projects delivered</dt><dd>${c.projects ?? '&ndash;'}</dd></div></dl>` : '';
     const stories = [
       c.nonprofitStory != null ? `<section class="pop__sec"><h4>How it helps nonprofits</h4>${phOr(c.nonprofitStory)}</section>` : '',
-      c.studentStory != null ? `<section class="pop__sec"><h4>How it helps students</h4>${phOr(c.studentStory)}</section>` : '',
+      c.studentStory != null ? `<section class="pop__sec"><h4>How it helps students</h4>${phOr(c.studentStory)}${videoBtn(c.studentVideo)}</section>` : '',
     ].join('');
     const html = `<p class="pop__meta">${meta.join('')}</p>
       <h3 class="pop__title">${esc(c.school)}</h3>

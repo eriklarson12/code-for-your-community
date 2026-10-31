@@ -575,7 +575,7 @@ body.org-under .org-layer--front {
 .track--learn {
   --tc: var(--np);
 }
-.track--run {
+.track--connect {
   --tc: var(--chapter);
 }
 .track__title {

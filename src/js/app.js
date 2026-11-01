@@ -805,6 +805,49 @@
   typeTitle(500);
   $('.brand').addEventListener('click', () => typeTitle(700));
 
+  /* ---------------- // labels ----------------
+     Each label types itself out (1 to 3 seconds), stays for about 5 seconds,
+     deletes itself, and starts again. A cursor always sits at the end.
+     Labels only run while they're on screen. With reduced motion turned on,
+     they show the full text. */
+  const LABEL_HOLD = 5000;
+  const codeLabels = $$('.code-label').map(el => {
+    const text = el.textContent.trim();
+    const typed = document.createElement('span');
+    const caret = document.createElement('span');
+    caret.className = 'code-label__caret';
+    el.textContent = ''; el.append(typed, caret);
+    return { el, typed, text, timer: 0, on: false };
+  });
+  function runLabel(L) {
+    clearTimeout(L.timer);
+    const n = L.text.length, perChar = Math.min(3000, Math.max(1000, n * 85)) / n;
+    let i = 0;
+    const type = () => {
+      L.el.classList.add('is-typing');
+      L.typed.textContent = L.text.slice(0, ++i);
+      if (i < n) L.timer = setTimeout(type, perChar * (0.6 + Math.random() * 0.8));
+      else { L.el.classList.remove('is-typing'); L.timer = setTimeout(erase, LABEL_HOLD); }
+    };
+    const erase = () => {
+      L.el.classList.add('is-typing');
+      L.typed.textContent = L.text.slice(0, --i);
+      if (i > 0) L.timer = setTimeout(erase, 30);
+      else { L.el.classList.remove('is-typing'); L.timer = setTimeout(type, 700); }
+    };
+    L.timer = setTimeout(type, 300);
+  }
+  function stopLabel(L) { clearTimeout(L.timer); L.typed.textContent = ''; L.el.classList.remove('is-typing'); }
+  if (reduceMotion) codeLabels.forEach(L => { L.typed.textContent = L.text; });
+  else if ('IntersectionObserver' in window) {
+    const labelIO = new IntersectionObserver(entries => entries.forEach(en => {
+      const L = codeLabels.find(x => x.el === en.target);
+      if (en.isIntersecting && !L.on) { L.on = true; runLabel(L); }
+      else if (!en.isIntersecting && L.on) { L.on = false; stopLabel(L); }
+    }));
+    codeLabels.forEach(L => labelIO.observe(L.el));
+  } else codeLabels.forEach(runLabel);
+
   /* ---------------- pop-ups ---------------- */
   const popup = $('#popup'), popBody = $('.popup__body', popup);
   let popAnchor = null;

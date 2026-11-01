@@ -56,6 +56,8 @@ Anything a reader moves eases back to the story view as they keep scrolling.
 | Map pop-up text (chapter stories, nonprofit descriptions, BoG summary, SDG pop-ups) | `js/content.js`. Any text in `[brackets]` shows as a dashed placeholder. Set a story to `null` to hide it. The BoG summary can be a list of paragraphs: `summary: ['First paragraph.', 'Second paragraph.']`. |
 | Words in the text that open a map pop-up | Wrap them in `<button type="button" class="inline-link" data-chapter="cornell">...</button>`, using the chapter's `id` from `js/content.js`. Use `data-bog` instead of `data-chapter` to open the Bits of Good pop-up, or `data-nonprofit="southface"` (ids from `atlanta.nonprofits`) to open a project's card. Card 2 in the Hack4Impact section and both Atlanta cards have examples. |
 | Button links (apply, propose a project, idea form) | `js/content.js` → `links`. Buttons with a dashed "link TBD" badge still need a URL. |
+| The **Run** button on the code window in "What Bits of Good does" (the steps it prints) | `js/content.js` → `bogRun`. The two lines the console shows before anyone presses Run are in `index.html` (search for `run__log`). |
+| The **Which role fits you?** quiz (questions, roles, which roles are open, apply links) | `js/content.js` → `roleQuiz`. After `deadline`, every result says applications are closed and links to the join page. When Bits of Good opens a new round, update `round`, `deadline`, `deadlineText`, `checked` and each role's `apply` link. |
 | Logos | Files are in `assets/logos/` (sources in `LOGO-SOURCES.txt`). Paths, disc colors and logo size: `js/content.js` → `orgs` and `gtLogo`. |
 | Where the GT logo sits | `js/content.js` → `gtLogo.placement`: `'center'` (full color inside the triangle, the default) or `'behind'` (large and faint behind it). |
 | Nonprofit pins and pop-ups | `js/content.js` → `atlanta.nonprofits` (the comment above the list explains each field). Pin locations (`at`, as `[latitude, longitude]`) are approximate. Groups based outside Atlanta sit at the edge of the map, and their `note` says where they are. |
@@ -75,6 +77,7 @@ css/style.css       styles
 js/content.js       chapters, nonprofits, links, logos, theme, pop-up text  ← edit this
 js/themes.js        the color themes
 js/app.js           scroll + map + triangle engine (D3)
+js/bog-interactive.js  Run button and role quiz in the Bits of Good section
 js/geo-data.js      generated map data (don't edit)
 vendor/             D3 v7.9 and topojson-client (bundled so the site works offline)
 css/font.css        Archivo variable font, embedded (SIL Open Font License in assets/fonts)

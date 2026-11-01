@@ -488,6 +488,7 @@
         <div class="block">
           <p class="code-label" aria-hidden="true">// bits of good</p>
           <h2 class="block__title">What Bits of Good does</h2>
+          <div class="bog-intro">
           <p>
               Each semester, small teams of developers, designers and managers
               pair with one nonprofit partner and build a tool around its needs,
@@ -500,17 +501,50 @@
               In order to keep everything running, Bits of Good has a wide range
               of roles students can get involved in.
             </p>
+            <figure class="code-window">
+              <div class="code-window__bar"><i></i><i></i><i></i><span>project.js</span><button type="button" class="code-window__run" aria-controls="run-console"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z"/></svg><span>Run</span></button></div>
+              <p class="sr-only">A Bits of Good project written as code: a nonprofit partner; a team of developers, designers, a product manager and an engineering manager; and a timeline that goes from the nonprofit&rsquo;s proposal to design, sprints (agile cycles), code review, Demo Day and handoff.</p>
+              <pre aria-hidden="true"><code><span class="l"><span class="c">// one Bits of Good project</span></span><span class="l"><span class="k">const</span> project = {</span><span class="l">  <span class="p">partner</span>: <span class="s">"nonprofit"</span>,</span><span class="l">  <span class="p">team</span>: [</span><span class="l">    <span class="s">"developers"</span>,</span><span class="l">    <span class="s">"designers"</span>,</span><span class="l">    <span class="s">"product manager"</span>,</span><span class="l">    <span class="s">"engineering manager"</span>,</span><span class="l">  ],</span><span class="l">  <span class="p">timeline</span>: [</span><span class="l" data-line="proposal">    <span class="s">"nonprofit proposal"</span>,</span><span class="l" data-line="design">    <span class="s">"design"</span>,</span><span class="l" data-line="sprint">    <span class="s">"sprint"</span>, <span class="c">// agile cycle</span></span><span class="l" data-line="review">    <span class="s">"code review"</span>,</span><span class="l" data-line="demo">    <span class="s">"Demo Day"</span>,</span><span class="l" data-line="handoff">    <span class="s">"handoff"</span>,</span><span class="l">  ],</span><span class="l">};<span class="code-window__caret"></span></span></code></pre>
+              <div class="code-window__console" id="run-console">
+                <div class="run__log" role="log" aria-live="polite">
+                  <div class="run__line run__line--note">// press Run to watch one project, start to finish</div>
+                  <div class="run__line run__line--cmd">$ <span class="code-window__caret"></span></div>
+                </div>
+              </div>
+            </figure>
+          </div>
           <figure class="photo">
             <img src="assets/photos/bog-showcase.jpg" width="1400" height="933" loading="lazy"
               alt="A crowded atrium where Bits of Good members stand by project posters and talk with visitors" />
             <figcaption>
-              Members share their work at a Bits of Good showcase. Photo
+              Members share their work at a Bits of Good Demo Day. Photo
               courtesy of Bits of Good.
             </figcaption>
           </figure>
         </div>
 
         <div class="block">
+          <h3 class="block__subtitle">In members&rsquo; own words</h3>
+          <div class="reel">
+            <div class="video-slot video-slot--reel">
+              <iframe
+                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2332087883867378&show_text=false&width=300"
+                title="What is Bits of Good? (GT Bits of Good on Facebook)" loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+            </div>
+            <p>
+              Bits of Good members answer three questions: what the club taught
+              them, from full-stack development to teamwork, their favorite
+              community events, and what their projects do, like tracking
+              donations and handling course registration (GT Bits of Good,
+              2026b).
+            </p>
+          </div>
+        </div>
+
+        <div class="block">
+          <p class="code-label" aria-hidden="true">// find your role</p>
           <h3 class="block__subtitle">Roles</h3>
           <p class="tracks__hint">Click a role to see what it does.</p>
           <div class="tracks">
@@ -601,24 +635,16 @@
               </details>
             </section>
           </div>
-        </div>
-
-        <div class="block">
-          <h3 class="block__subtitle">What is Bits of Good?</h3>
-          <div class="reel">
-            <div class="video-slot video-slot--reel">
-              <iframe
-                src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F2332087883867378&show_text=false&width=300"
-                title="What is Bits of Good? (GT Bits of Good on Facebook)" loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                allowfullscreen></iframe>
-            </div>
-            <p>
-              Bits of Good members answer three questions: what the club taught
-              them, from full-stack development to teamwork, their favorite
-              community events, and what their projects do, like tracking
-              donations and handling course registration (GT Bits of Good,
-              2026b).
+          <div class="role-quiz" id="role-quiz">
+            <h3 class="block__subtitle">Which role fits you?</h3>
+            <p class="quiz__intro">
+              Answer a few quick questions to find the Bits of Good role that
+              fits you best. If it&rsquo;s open right now, you can apply from here.
+            </p>
+            <div class="quiz"></div>
+            <p class="quiz__source">
+              Roles and openings are from Bits of Good&rsquo;s join page, checked
+              November 1, 2026 (Bits of Good, n.d.-i).
             </p>
           </div>
         </div>
@@ -636,8 +662,8 @@
               Photos courtesy of Bits of Good.
             </figcaption>
           </figure>
-          <div class="cta-grid">
-            <article class="cta">
+          <div class="cta-grid cta-grid--lead">
+            <article class="cta cta--lead">
               <h3>For students</h3>
                 <p>
                   Expect to dedicate <strong class="num">3&ndash;8 hours a week</strong> to meetings and
@@ -1180,5 +1206,6 @@
     <script src="js/themes.js"></script>
     <script src="js/content.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/bog-interactive.js"></script>
   </body>
 </html>

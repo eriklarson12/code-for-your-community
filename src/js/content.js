@@ -68,6 +68,161 @@ window.SITE = {
     cycApply:     'https://www.georgiatechcyc.org/apply-in-cycle',
   },
 
+  /* "Run" button on the code window in "What Bits of Good does"
+     (js/bog-interactive.js). Pressing Run steps through the timeline in the
+     code and prints what happens at each step in the console under it.
+     The page labels this a simplified example: the volunteer app is made up,
+     not a real Bits of Good project. (The two lines the console shows before
+     anyone presses Run are in index.html.)
+     - line: which timeline line in the code to highlight
+       (proposal, design, sprint, review, demo, handoff)
+     - Keep each text short enough to fit on one line of the console. */
+  bogRun: {
+    intro: '// a simplified example of how a project runs',
+    steps: [
+      { line: 'proposal', tag: 'proposal', text: 'A nonprofit needs a volunteer sign-up app.' },
+      { line: 'design', tag: 'design', text: 'Designers research users and sketch screens.' },
+      { line: 'sprint', tag: 'sprint', sprints: 3, text: 'plan → build → review', after: '…repeat until it’s ready: the agile cycle' },
+      { line: 'review', tag: 'code review', text: 'A teammate checks every change.' },
+      { line: 'demo', tag: 'Demo Day', text: 'The team presents the finished app.' },
+      { line: 'handoff', tag: 'handoff', text: 'The nonprofit starts using it, and the maintenance team keeps it running.' },
+    ],
+    done: 'Shipped in one semester.',
+    next: 'Find the role that fits you',
+  },
+
+  /* "Which role fits you?" quiz under the Roles list (js/bog-interactive.js).
+     Roles, taglines, openings and apply links were copied from
+     bitsofgood.org/join on November 1, 2026 (Spring 2027 applications,
+     open until November 17).
+     - apply: the role's application form, or null if the role isn't open.
+       After `deadline`, every result says applications are closed and points
+       to the join page. When Bits of Good opens a new round, update
+       `round`, `deadline`, `deadlineText`, `checked` and each `apply`.
+     - family: the role in the Roles list above that it belongs to. The
+       result's "See this role above" button opens that one.
+     - In `questions`, an option either goes to another question (next) or
+       ends the quiz with a role (role). */
+  roleQuiz: {
+    round: 'Spring 2027',
+    deadline: '2026-11-17T23:59:59-05:00',
+    deadlineText: 'November 17',
+    checked: 'November 1, 2026',
+    joinPage: 'https://bitsofgood.org/join',
+    cite: 'Bits of Good, n.d.-i',
+    start: 'start',
+    questions: {
+      start: { q: 'Which sounds most like you?', options: [
+        { text: 'I like building things with code', next: 'code' },
+        { text: 'I like designing how apps look and work', next: 'design' },
+        { text: 'I like leading a team and planning the work', next: 'lead' },
+        { text: 'I like meeting people and finding out what they need', next: 'partner' },
+        { text: 'I like telling stories with words, video or social media', next: 'story' },
+        { text: 'I like organizing events and bringing people together', next: 'events' },
+      ] },
+      code: { q: 'How much coding have you done?', options: [
+        { text: 'Not much yet, but I want to learn', role: 'devBootcamper' },
+        { text: 'Some, in classes or my own projects', next: 'codeSome' },
+        { text: 'A lot. I could teach it', next: 'codeLots' },
+      ] },
+      codeSome: { q: 'Which would you rather do?', options: [
+        { text: 'Build features with a project team', role: 'developer' },
+        { text: 'Help shape new projects with nonprofits', role: 'npWebDev' },
+      ] },
+      codeLots: { q: 'With that experience, you’d rather…', options: [
+        { text: 'Lead a team’s technical work and review code', role: 'engManager' },
+        { text: 'Teach new members the basics', role: 'devInstructor' },
+        { text: 'Keep building features myself', role: 'developer' },
+      ] },
+      design: { q: 'How much design have you done?', options: [
+        { text: 'Not much yet, but I want to learn', role: 'designBootcamper' },
+        { text: 'Some, in classes or my own projects', role: 'productDesigner' },
+        { text: 'A lot. I could teach it', next: 'designLots' },
+      ] },
+      designLots: { q: 'With that experience, you’d rather…', options: [
+        { text: 'Design screens for a nonprofit project', role: 'productDesigner' },
+        { text: 'Teach new members the basics', role: 'designInstructor' },
+      ] },
+      lead: { q: 'Which part of leading sounds best?', options: [
+        { text: 'Working with the nonprofit to decide what to build', role: 'productManager' },
+        { text: 'Making the technical calls and reviewing code', role: 'engManager' },
+      ] },
+      partner: { q: 'With a nonprofit, you’d rather…', options: [
+        { text: 'Interview them and write up a project proposal', role: 'npConsultant' },
+        { text: 'Use your coding skills to scope what they need', role: 'npWebDev' },
+      ] },
+      story: { q: 'What would you rather make?', options: [
+        { text: 'Videos', role: 'videographer' },
+        { text: 'Posts and campaigns', role: 'digitalMarketer' },
+        { text: 'The words: captions, emails and articles', role: 'copywriter' },
+      ] },
+      events: { q: 'Which sounds more fun?', options: [
+        { text: 'Running an event for 100 people', role: 'opsCoordinator' },
+        { text: 'Getting 100 people to show up to it', role: 'digitalMarketer' },
+      ] },
+    },
+    roles: {
+      productManager: { name: 'Product Manager', family: 'Product',
+        tagline: 'The frontline client communicator and project team lead',
+        about: 'You’d be the bridge between students and a nonprofit: finding out what the partner needs, writing the roadmap and keeping the project on schedule.',
+        apply: 'https://forms.gle/diy1nwb47WycAt438' },
+      productDesigner: { name: 'Product Designer', family: 'Design',
+        tagline: 'Master of product mockups and UX',
+        about: 'You’d research the people who will use an app and design its wireframes and screens.',
+        apply: 'https://forms.gle/J4dEkzsD7Z6zjA127' },
+      designInstructor: { name: 'Design Bootcamp Instructor', family: 'Bootcamp Instructor',
+        tagline: 'Leaders who develop future Bits of Good designers',
+        about: 'You’d teach new members the basics of product design in bootcamp, review their work and mentor them through their first projects.',
+        apply: 'https://forms.gle/J4dEkzsD7Z6zjA127' },
+      npConsultant: { name: 'Nonprofit Partnership Consultant', family: 'Nonprofit Partner',
+        tagline: 'Advocates ready to connect with potential nonprofits',
+        about: 'You’d recruit new nonprofit partners, interview them about their challenges and turn their needs into software proposals.',
+        apply: 'https://forms.gle/nTyNcKrGhz8uin8s5' },
+      npWebDev: { name: 'Nonprofit Partnership Web Developer', family: 'Nonprofit Partner',
+        tagline: 'Advocates ready to connect with potential nonprofits',
+        about: 'You’d join the team that recruits new nonprofit partners and turns their needs into proposals, and bring your web development skills to it.',
+        apply: 'https://forms.gle/nTyNcKrGhz8uin8s5' },
+      engManager: { name: 'Engineering Manager', family: 'Engineering',
+        tagline: 'Arbiter of the dev roadmap and GitHub guru',
+        about: 'You’d lead a team’s technical work: planning sprints, reviewing code and making sure the finished software is reliable.',
+        apply: 'https://forms.gle/ahPjUo4rVSurfRWQA' },
+      /* Open, but the form link on the join page didn't open when we checked,
+         so this one goes to the join page instead. */
+      devInstructor: { name: 'Developer Bootcamp Instructor', family: 'Bootcamp Instructor',
+        tagline: 'Instructors to teach basics of React and Express',
+        about: 'You’d teach new members the basics of web development in bootcamp and mentor them as they build their first projects.',
+        apply: 'https://bitsofgood.org/join' },
+      developer: { name: 'Developer', family: 'Engineering',
+        tagline: 'An experienced webdev ready to dive into our JS-heavy stack',
+        about: 'You’d build web apps for a nonprofit partner with a project team.',
+        apply: null },
+      devBootcamper: { name: 'Developer Bootcamper', family: 'Bootcamper',
+        tagline: 'Students excited to make an impact with webdev',
+        about: 'Bootcamp teaches the basics of web development through hands-on projects, so you’re ready to join a nonprofit project team the next semester.',
+        apply: null },
+      designBootcamper: { name: 'Design Bootcamper', family: 'Bootcamper',
+        tagline: 'Students intrigued by the world of design',
+        about: 'Bootcamp teaches the basics of product design through hands-on projects, so you’re ready to join a nonprofit project team the next semester.',
+        apply: null },
+      copywriter: { name: 'Copywriter', family: 'Marketing',
+        tagline: 'Quick with a pen, ready to inspire others',
+        about: 'You’d write the words that tell Bits of Good’s story, from social media posts to newsletters and recruitment campaigns.',
+        apply: 'https://forms.gle/sibq4jTNsw72gzREA' },
+      digitalMarketer: { name: 'Digital Marketer', family: 'Marketing',
+        tagline: 'Knower of all-things communication and promotion',
+        about: 'You’d run Bits of Good’s social media and campaigns, and spread the word about finished projects so more students and nonprofits get involved.',
+        apply: 'https://forms.gle/sR7bkBtGRQdiVUna6' },
+      videographer: { name: 'Videographer', family: 'Marketing',
+        tagline: 'A video-editing whiz, presenting Bits of Good to the world',
+        about: 'You’d film and edit the videos that show Bits of Good’s people and projects.',
+        apply: 'https://forms.gle/P6PJ9VUXdJfPskVX8' },
+      opsCoordinator: { name: 'Operations and Community Coordinator', family: 'Operations',
+        tagline: 'Coordinator of club initiatives, logistics, and more',
+        about: 'You’d keep the club running behind the scenes: planning events and showcases, handling recruitment logistics and supporting members across every team.',
+        apply: 'https://forms.gle/tqid7UvL8YiK9h94A' },
+    },
+  },
+
   /* ---------------------------------------------------------------
      HACK4IMPACT CHAPTERS (North America map)
      status: 'active' | 'forming' | 'inactive'

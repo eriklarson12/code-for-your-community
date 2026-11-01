@@ -205,8 +205,18 @@
     const Lcenter = desktop ? 96 : 54;
     const rfc = desktop ? Math.min(W * 0.26, H * 0.36) : Math.min(W * 0.27, H * 0.3);
     const Rcenter = rfc - Lcenter / 2 - (desktop ? 20 : 10);
+    // While a page (Bits of Good, Epic Intentions, Consult Your Community) is
+    // being read, the logo on top eases to logoRead and sits readLift px higher,
+    // and the fade band under it gets shorter (bandRead). During the turns
+    // between the pages it stays at logoSize.
+    const logoRead = desktop ? 92 : 68;
+    const readLift = desktop ? 20 : 12;
+    const bandExtra = desktop ? Math.min(110, H * 0.1) : 80;
+    const bandFull = Math.round(logoTop.y + logoSize / 2 + bandExtra);
+    const bandRead = Math.round(logoTop.y - readLift + logoRead / 2 + bandExtra * 0.8);
     L = {
       desktop, pad, colW, V, logoSize, logoTop, Rbig, Lsmall, rf, Rsmall, Lcenter, Rcenter,
+      logoRead, readLift, bandFull, bandRead,
       sdgSize: desktop ? 72 : 46,
       hero: { fx: W / 2, fy: H * (desktop ? 0.53 : 0.5), r: Math.min(W, H) * (desktop ? 0.34 : 0.42) },
       globe: { fx: V.cx, fy: V.cy, r: Math.min(V.w, V.h) * 0.43 },
@@ -214,7 +224,7 @@
     const root = document.documentElement.style;
     root.setProperty('--col-x', pad + 'px');
     root.setProperty('--col-w', colW + 'px');
-    root.setProperty('--band-h', Math.round(logoTop.y + logoSize / 2 + (desktop ? Math.min(110, H * 0.1) : 80)) + 'px');
+    root.setProperty('--band-h', bandFull + 'px'); // the page layout always uses the full band
     root.setProperty('--vis-x', Math.round(V.x + 8) + 'px');
     computeKeyframes();
   }
@@ -659,7 +669,7 @@
     const { id, p } = pos, o = pos.i;
     if (o < ord('toBoG') || (id === 'toBoG' && p < 0.36)) return null;
     const V = L.V, Ls = L.logoSize, top = L.logoTop;
-    const st = { theta: 0, R: L.Rbig, cx: top.x, cy: top.y + L.Rbig, size: Ls, all: 0, edge: 0.18, edgeBlur: 1, ghosts: 1, frame: 0, sdg: 0, band: 1, focus: null };
+    const st = { theta: 0, R: L.Rbig, cx: top.x, cy: top.y + L.Rbig, size: Ls, all: 0, edge: 0.18, edgeBlur: 1, ghosts: 1, frame: 0, sdg: 0, band: 1, focus: null, read: 0 };
     if (id === 'toBoG') {
       applyCam(cam);
       const bp = proj(BOG);
@@ -670,11 +680,20 @@
       st.introAlpha = smooth(p, 0.36, 0.46);
       return st;
     }
-    if (id === 'bog') st.theta = 0;
+    if (id === 'bog' || id === 'ei' || id === 'cyc') {
+      st.theta = id === 'bog' ? 0 : id === 'ei' ? -120 : -240;
+      // reading a page: ease to the smaller logo over the first 30% of a screen
+      // of scrolling, and back to full size in the last 20% before the next turn
+      const sc = scenes[o], into = p * sc.height, left = (1 - p) * sc.height;
+      const r = Math.min(smooth(into, 0, H * 0.3), smooth(left, 0, H * 0.2));
+      const Rr = L.Rbig + L.readLift / 1.5; // keeps the two lower corners where they are
+      st.read = r;
+      st.size = lerp(Ls, L.logoRead, r);
+      st.R = lerp(L.Rbig, Rr, r);
+      st.cy = lerp(top.y + L.Rbig, top.y - L.readLift + Rr, r);
+    }
     else if (id === 'toEI') st.theta = -120 * ease(p);
-    else if (id === 'ei') st.theta = -120;
     else if (id === 'toCYC') st.theta = -120 - 120 * ease(p);
-    else if (id === 'cyc') st.theta = -240;
     else {
       const q = id === 'toSDG' ? ease(p) : 1;
       const slide = id === 'sdg' ? smooth(p, 0, 0.12) : 0; // make room for the text column
@@ -695,7 +714,9 @@
     const visible = !!os;
     back.style.display = visible ? '' : 'none';
     frontLayer.style.display = visible ? '' : 'none';
-    $('#top-band').style.opacity = visible ? os.band * (1 - endFade) : 0;
+    const topBand = $('#top-band');
+    topBand.style.opacity = visible ? os.band * (1 - endFade) : 0;
+    if (visible) topBand.style.height = Math.round(lerp(L.bandFull, L.bandRead, os.read)) + 'px';
     if (!visible) { ORGS.forEach(o => { o.xy = null; }); return; }
     back.style.opacity = 1 - endFade; frontLayer.style.opacity = 1 - endFade;
     const pts = [];
@@ -804,6 +825,49 @@
   }
   typeTitle(500);
   $('.brand').addEventListener('click', () => typeTitle(700));
+
+  /* ---------------- // labels ----------------
+     Each label types itself out (1 to 3 seconds), stays for about 5 seconds,
+     deletes itself, and starts again. A cursor always sits at the end.
+     Labels only run while they're on screen. With reduced motion turned on,
+     they show the full text. */
+  const LABEL_HOLD = 5000;
+  const codeLabels = $$('.code-label').map(el => {
+    const text = el.textContent.trim();
+    const typed = document.createElement('span');
+    const caret = document.createElement('span');
+    caret.className = 'code-label__caret';
+    el.textContent = ''; el.append(typed, caret);
+    return { el, typed, text, timer: 0, on: false };
+  });
+  function runLabel(L) {
+    clearTimeout(L.timer);
+    const n = L.text.length, perChar = Math.min(3000, Math.max(1000, n * 85)) / n;
+    let i = 0;
+    const type = () => {
+      L.el.classList.add('is-typing');
+      L.typed.textContent = L.text.slice(0, ++i);
+      if (i < n) L.timer = setTimeout(type, perChar * (0.6 + Math.random() * 0.8));
+      else { L.el.classList.remove('is-typing'); L.timer = setTimeout(erase, LABEL_HOLD); }
+    };
+    const erase = () => {
+      L.el.classList.add('is-typing');
+      L.typed.textContent = L.text.slice(0, --i);
+      if (i > 0) L.timer = setTimeout(erase, 30);
+      else { L.el.classList.remove('is-typing'); L.timer = setTimeout(type, 700); }
+    };
+    L.timer = setTimeout(type, 300);
+  }
+  function stopLabel(L) { clearTimeout(L.timer); L.typed.textContent = ''; L.el.classList.remove('is-typing'); }
+  if (reduceMotion) codeLabels.forEach(L => { L.typed.textContent = L.text; });
+  else if ('IntersectionObserver' in window) {
+    const labelIO = new IntersectionObserver(entries => entries.forEach(en => {
+      const L = codeLabels.find(x => x.el === en.target);
+      if (en.isIntersecting && !L.on) { L.on = true; runLabel(L); }
+      else if (!en.isIntersecting && L.on) { L.on = false; stopLabel(L); }
+    }));
+    codeLabels.forEach(L => labelIO.observe(L.el));
+  } else codeLabels.forEach(runLabel);
 
   /* ---------------- pop-ups ---------------- */
   const popup = $('#popup'), popBody = $('.popup__body', popup);
